@@ -2,117 +2,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
 @import url('https://fonts.cdnfonts.com/css/google-sans');
 
-:root {
-    --main-color: #00bfff;
-    --background-color: #dbe9f4;
-    --red-theme: red;
-    --pink-theme: #FFOO7F;
-    --green-theme: green;
-    --bright-green-theme: rgb(40, 200, 40);
-    --blue-theme: blue;
-    --sky-blue-theme: #00bfff;
-    --royal-blue-theme: #114;
-    --purple-theme: purple;
-    --orange-theme: #FF5F1F;
-    --orange-background-light: orange;
-    --orange-background-dark: darkorange;
-    --red-background-light: pink;
-    --red-background-dark: ;
-    --green-background-light: lightgreen;
-    --green-background-dark: darkgreen;
-    --blue-background-light: #dbe9f4;
-    --blue-background-dark: darkblue;
-}
+  html, body {
+            height: 100%; /* Ensure full height */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        p{
+          padding: 0;
+          margin: 0;
+        }
+        body {
+            font-family: 'Product Sans', sans-serif;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 0;
+            margin: 0;
+            overflow: scroll; 
+            background: #dbe9f4;/* Ensure there's no margin around the body */
+        }
+        #head {
+            height: 3.5rem; width: 100%;
+            background: #28282B;
+            box-sizing: border-box;
+            flex-grow: 0;/* For visibility */
+            flex-shrink: 0;
+            display: flex;
+            color: white;
+            padding-left: .5rem;
+            padding-right: .5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+        #head-left-child{
+             height: 40px;
+             min-width: 40%;
+             backgroundd: rgb(255, 0, 0);
+             display: flex;
+            align-items: center;
+            gap: 5px;
+         
+        }
+        
+        #head-profile-pic{
+             height: 100%;
+             aspect-ratio: 1/1;
+             background: grey;
+             border-radius: 50%;
+        }
+        #head-left-texts-container{
+             height: 80%;
+             min-width: 40%;
+             backgroundd: rgb(244, 255, 85);
+             display: flex;
+             flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-evenly;
+        }
+        #head-profile-label{
+             font-weight: bold;
+             height: 50%;
+             min-width: 40%;
+             backgroundd: rgb(255, 1, 251);
+        }
+        #head-profile-notifications{
+             height: 40%;
+             min-width: 40%;
+             backgroundd: rgb(78, 185, 111);
+        }
+        
+        #head-right-child{
+             height: 80%;
+             /*min-width: 40%;*/
+             aspect-ratio: 1/1; /*replace and return width if adding more features to the div*/
+             backgroundd: grey;
+        }
+        #chat-menu{
+           width: 80%;
+           height: 80%;
+           text-align: center;
+           backgroundd: grey;
+           font-size: .5rem;
+        }
+        #toast-text{
+            width: 100%;
+            height: 1 rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        p{
+           margin: 0;
+           padding: 0;
+        }
+        #body { width: 100%;
+            flex-grow: 1; /* Takes up remaining space */
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 5px;/* For visibility */
+        }
 
-body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    
-    background: var(--background-color);
-}
-
-body{
-    box-sizing: border-box;
-    padding: 0; width: 100%; flex-grow: 0; flex-shrink: 0;
-    margin: 0;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    overflow-x: hidden;
-    background: #EAF3FF;
-    height: 100%;
-    
-    line-height: auto;
-    overflow: hidden;
-    background: linear-gradient(to top left,  #FFD2D2, white, white,#EAF3FF);
-    overflow: hidden;
-    background: var(--background-color);
-    font-size: 2.1rem;
-    
-}
-
-#header {
-    box-sizing: border-box;
-    width: 100%;
-    height: 3.5rem;
-    background: #28282B;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 7px;
-    padding-right: 7px;
-}
-#toast-message-div{
-    width: 100%;
-    height: 1.4rem;
-    background: redd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#body{
-    box-sizing: border-box;
-   
-    width: 100%;
-    height: calc(100vh - 9.4rem - 8px);
-    scroll-behavior: smooth;
-    position: relative;
-    overflow: scroll;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    display: flex;
-    flex-shrink: 0;
-    flex-grow: 0;
-   
-    flex-direction: column;
-    /*user-select: none;*/
-    overflow-x: hidden;
- 
-
-}
-#foot{
-    box-sizing: border-box;
-    width: 100%;
-    height: 4.5rem;
-    background: bluee;
-    color: white;
-    display: flex;
-   /* position: fixed;
-    bottom: 7px; */
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    position: fixed;
-    bottom: 0:
-}
-
-
-.outMsg {
+        .outMsg {
     font-family: 'Product Sans', sans-serif;
     font-weight: boldd;
     max-width: 50%;
@@ -123,7 +112,7 @@ body{
     color: white;
     word-break: break-word;
     align-self: right;
-    /* border: 2px solid var(--main-color); */
+    background: #28282B;
     margin-top: 10px;
     margin-left: 5px;
     text-align: left;
@@ -163,7 +152,7 @@ body{
     margin: 0 auto;
     bottom: 7px;
     right: 7px;
-
+    font-size: 1rem;
 }
 
 .inMsg {
@@ -186,12 +175,18 @@ body{
     padding: 10px;
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
 }
-
-#form {
+        #foot { width: 100%;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: .5rem;/* For visibility */
+        }
+        #form {
     box-sizing: border-box;
     width: 100%;
-    height: 60%;
-    background: rgb(0, 0, 0, 0.4);
+    height: 80%;
+    background: rgb(0, 0, 0, 0.0);
     display: flex;
     align-items: center;
     padding-left: 12px;
@@ -206,7 +201,7 @@ body{
     padding-right: 7.9rem;
     word-break: break-word;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 1);
     flex-grow: 1;
     
     border-radius: 2rem;
@@ -221,7 +216,7 @@ body{
 }
 
 #form>button {
-    background-color: var(--main-color);
+    background: #28282B;
     width: 65px;
     height: 65px;
     box-shadow: 2px 2px 4px 0px black;
@@ -312,34 +307,4 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-
-@media only screeen and (max-width: 997px) and (orientation: portrait) {
-
-    #form {
-        height: 7.3rem;
-        bottom: 1.5rem;
-    }
-
-    svg {
-        transform: scale(2);
-    }
-
-    #input {
-        padding-left: 6.8rem;
-        padding-right: 14.1rem;
-        border-radius: 4rem;
-        font-size: 32px;
-    }
-
-    #form>button {
-        width: 130px;
-        height: 130px;
-    }
-
-}
-
-#darkMode {
-    display: inline-block;
 }
