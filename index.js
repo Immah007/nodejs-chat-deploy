@@ -18,12 +18,18 @@ io.on('connection', (socket) => {
 
   // Handle chat messages
   socket.on('chat message', (msg) => { 
-
-    
     console.log('message: ' + msg);
     // Broadcast the message to everyone
     socket.broadcast.emit('chat message', msg);
   });
+
+  
+  socket.on('typing', (username) => {
+    console.log("user is typing......");
+   // socket.broadcast.emit('typing', 'text is here');
+    socket.broadcast.emit('typing');
+
+});
 
   // Handle disconnection
   socket.on('disconnect', () => {
@@ -33,7 +39,7 @@ io.on('connection', (socket) => {
 
 // Serve index.html for any other GET request
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public' , 'index.html'));
+  res.sendFile(path.join(__dirname, 'public' , 'anchor.html'));
 });
 
 // Start the server
