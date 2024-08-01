@@ -175,7 +175,7 @@
     padding: 10px;
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
 }
-        #foot { max-width: 100vw;
+        #foot { max-width: 10rem;
                
             height: 3.5rem; 
                flex-grow: 0;
