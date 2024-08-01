@@ -113,7 +113,7 @@ socket.on('typing', (username) => {
        newMessageBubble.setAttribute("id","sent");
    let newMessageNameStamp = document.createElement('div');
        newMessageNameStamp.setAttribute("class","nameStamp");
-       newMessageNameStamp.innerText = "Sender";
+       newMessageNameStamp.innerText = "Emmanuel";
    let newMessageText = document.createElement('p');
        newMessageText.setAttribute("class","text-message");        
        newMessageText.innerText = msg;
