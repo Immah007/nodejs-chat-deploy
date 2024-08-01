@@ -175,7 +175,7 @@
     padding: 10px;
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
 }
-        #foot { width: 100%;
+        #foot { width: 100vw;
             height: 3.5rem;
             display: flex;
             align-items: center;
@@ -184,7 +184,7 @@
         }
         #form {
     box-sizing: border-box;
-    width: 100%;
+    width: 100vw;
     height: 80%;
     background: rgb(0, 0, 0, 0.0);
     display: flex;
