@@ -1,5 +1,4 @@
-
-        let mic = document.getElementById("sendBtn");
+let mic = document.getElementById("sendBtn");
         let background = document.querySelector("body");
         let colorChanger = document.getElementById("colorChanger");
         let micSvg = document.getElementById("micSvg");
@@ -15,15 +14,43 @@
         
         // Add an event listener to the input
 input.addEventListener('input', function() {
+
+    let username = 'USERNAME TYPING';
+    socket.emit('typing', username);
   // Check if the input value is not empty
-  if (input.value.trim() !== '') {
+  if (input.value.trim() !== ' ') {
     // Enable the button
      hideMic()
-  } else {
+  }
+   else {
     // Disable the button
     sendIcon.style.display = "none";
     micSvg.style.display = "inline-block"
   }
+
+ 
+
+    
+
+
+});
+   
+socket.on('typing', (username) => {
+   // alert("User is typing...");
+    setTimeout(
+        function(){
+            
+            document.getElementById("online").style.display = "none";
+            document.getElementById("typing").style.display = "block";
+        setTimeout(
+            function(){
+            document.getElementById("online").style.display = "block";
+            document.getElementById("typing").style.display = "none";
+            }, 3000)
+    
+        }, 1000) 
+    //socket.emit('typing', username + "typing notification...")
+
 });
 
         //SENDING THE MESSAGE...
@@ -62,42 +89,12 @@ input.addEventListener('input', function() {
            textBox.appendChild(messageText);
            textBox.appendChild(timeStamp);       
 
-            body.scrollTo(0, document.body.scrollHeight);
+           body.scrollTop = body.scrollHeight;
 
 
-            //LOGIC FOR PROCESSING INCOMING MESSAGES...........
-            /*
-            socket.on('chat message', function(msg){
-              //alert(".....")
-
-              var newMessageHour = new Date().getHours();
-        var newMessageMinute = new Date().getMinutes();
-            if (newMessageMinute< 10) {newMessageMinute = "0"+ newMessageMinute};
-        var newMessageTime = newMessageHour+":"+newMessageMinute;
-      
-       let newMessageBubble = document.createElement('div');  
-           newMessageBubble.setAttribute("class","inMsg");
-           newMessageBubble.setAttribute("id","sent");
-       let newMessageNameStamp = document.createElement('div');
-           newMessageNameStamp.setAttribute("class","nameStamp");
-           newMessageNameStamp.innerText = "Sender";
-       let newMessageText = document.createElement('p');
-           newMessageText.setAttribute("class","text-message");        
-           newMessageText.innerText = msg;
-       let newMessageTimeStamp = document.createElement('div');
-           newMessageTimeStamp.setAttribute("class", "timeStamp");
-           newMessageTimeStamp.innerText = newMessageTime;
-
-           body.appendChild(newMessageBubble); 
-           newMessageBubble.appendChild(newMessageNameStamp);
-           newMessageBubble.appendChild(newMessageText);
-           newMessageBubble.appendChild(newMessageTimeStamp); 
-
-              //$('#messages').append($('<li>').text(msg));
-              window.scrollTo(0, document.body.scrollHeight);
-          });
-             */
-          //<<<LOGIC FOR PROCESSING IICOMING MESSAGES
+        //LOGIC FOR PROCESSING INCOMING MESSAGES...........
+    
+        //<<<LOGIC FOR PROCESSING IICOMING MESSAGES
      
             
             
@@ -130,7 +127,7 @@ input.addEventListener('input', function() {
        newMessageBubble.appendChild(newMessageTimeStamp); 
 
           //$('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
+          body.scrollTop = body.scrollHeight;
       });
 
 
