@@ -243,7 +243,8 @@
 
 .inputhold {
     height: 90%;
-    flex: 1;
+    flex-shrink: 1;
+    width: 50%;
     position: relative;
     background: green;
     display: flex;
