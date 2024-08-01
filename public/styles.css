@@ -196,11 +196,24 @@
     gap: 7px;
 }
 
+.inputhold {
+    height: 90%;
+    flex: 1;
+    
+    position: relative;
+    backgroundd: green;
+    display: flex;
+    justify-conten: center;
+    text-align: center;
+    align-ittems: center;
+    text-align: center;
+}
+
 #input {
     font-size: 24px;
     box-sizing: border-box;
     border: none;
-    padding: 0 1rem;
+    width: 100%
     padding-right: 7.9rem;
     word-break: break-word;
     height: 100%;
@@ -208,7 +221,7 @@
     flex: 1;
     box-sizing: border-box;
     border-radius: 2rem;
-    margin: 0.rem;
+    margin: 0rem;
     padding-right: 7rem;
     padding-left: 3rem;
     font-family: 'Product Sans Light', sans-serif;
@@ -242,18 +255,9 @@
 }
 
 
-.inputhold {
-    height: 90%;
-    flex: 1;
-    
-    position: relative;
-    background: green;
-    display: flex;
-    justify-conten: center;
-    text-align: center;
-    align-ittems: center;
-    text-align: center;
-}
+
+
+
 
 /*   TAGGED MESSAGE FUNCTIONALITY CODE. COMING SOON...
   .inputhold::before{ content: "heehhjkskskkk"; position: absolute; box-sizing: border-box; border-left: 3px solid blue; text-align: left; padding: 4px; font-size: 24px;
