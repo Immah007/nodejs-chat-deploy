@@ -175,7 +175,8 @@
     padding: 10px;
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
 }
-        #foot { width: 100vw;
+        #foot { max-width: 100vw;
+               overflow: hidden;
             height: 3.5rem;
             display: flex;
             align-items: center;
