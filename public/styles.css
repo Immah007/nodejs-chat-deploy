@@ -176,7 +176,7 @@
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
 }
         #foot { max-width: 100vw;
-               background: red;
+               
             height: 3.5rem; 
                flex-shrink: 1;
             display: flex;
@@ -188,7 +188,7 @@
     box-sizing: border-box;
     width: 100vw;
     height: 80%;
-    background: rgb(0, 0, 0, 0.6);
+    background: rgb(0, 0, 0, 0.0);
     display: flex;
     align-items: center;
     padding-left: 12px;
@@ -198,6 +198,7 @@
 
 #input {
     font-size: 24px;
+    box-sizing: border-box;
     border: none;
     padding: 0 1rem;
     padding-right: 7.9rem;
@@ -243,8 +244,8 @@
 
 .inputhold {
     height: 90%;
-    flex-shrink: 1;
-    width: 50%;
+    flex: 1;
+    
     position: relative;
     background: green;
     display: flex;
