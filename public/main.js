@@ -129,7 +129,7 @@ socket.on('typing', (username) => {
                 element.style.left = `${initialLeft}px`; // Return to original position
                 
                 // Trigger the console message with the text of the dragged div
-                alert(element.textContent);
+                console.log(element.textContent);
 
                 // Add a button to the second container
                //******* addButtonToSecondContainer(element);
@@ -137,7 +137,7 @@ socket.on('typing', (username) => {
         }
 
           function consoleMessage(text) {
-            alert(`Div has returned to its original position. Text: "${text}"`);
+            console.log(`Div has returned to its original position. Text: "${text}"`);
           }
 
          ////END OF TAGGING FUNCTIONALITY.
