@@ -129,7 +129,7 @@ socket.on('typing', (username) => {
                 element.style.left = `${initialLeft}px`; // Return to original position
                 
                 // Trigger the console message with the text of the dragged div
-                console.log(element.textContent);
+                consoleMessage(element.textContent);
 
                 // Add a button to the second container
                //******* addButtonToSecondContainer(element);
