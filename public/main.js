@@ -130,6 +130,20 @@ socket.on('typing', (username) => {
           body.scrollTop = body.scrollHeight;
       });
 
+   function showMenu(){
+           alert("Menu package list is updating...");
+   }
+   function useEmoji(){
+           alert("Emoji package is updating...");
+   }
+   function sendFile(){
+           alert("Files cannot be uploaded at the moment.");
+   }
+   function takePhoto(){
+           alert("Please allow Camera access to take photos.");
+   }
+   
+
 
 
 
