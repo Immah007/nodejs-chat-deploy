@@ -136,7 +136,9 @@ socket.on('typing', (username) => {
             });
         }
 
-
+          function consoleMessage(text) {
+            alert(`Div has returned to its original position. Text: "${text}"`);
+          }
 
          ////END OF TAGGING FUNCTIONALITY.
 
