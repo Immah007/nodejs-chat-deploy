@@ -88,17 +88,60 @@ socket.on('typing', (username) => {
            textBox.appendChild(nameStamp);
            textBox.appendChild(messageText);
            textBox.appendChild(timeStamp);       
-
+           makeDraggable(textBox);
            body.scrollTop = body.scrollHeight;
 
 
         //LOGIC FOR PROCESSING INCOMING MESSAGES...........
     
         //<<<LOGIC FOR PROCESSING IICOMING MESSAGES
-     
-            
+        
             
         }
+
+        ///MESSAGE TAGGING FUNCTIONALITY LPGOC......
+        
+          function makeDraggable(element) {
+            let startX, initialLeft;
+
+            element.addEventListener('touchstart', function(event) {
+                // Start dragging
+                const touch = event.touches[0];
+                startX = touch.clientX;
+                initialLeft = parseInt(element.style.left, 10) || 0;
+                element.style.cursor = 'grabbing'; // Change cursor
+                event.preventDefault();
+            });
+
+            element.addEventListener('touchmove', function(event) {
+                // During dragging
+                const touch = event.touches[0];
+                const dx = touch.clientX - startX;
+                const newLeft = Math.max(initialLeft + dx, 0); // Prevent moving to the left
+
+                element.style.left = `${newLeft}px`;
+                event.preventDefault();
+            });
+
+            element.addEventListener('touchend', function() {
+                // End dragging
+                element.style.cursor = 'grab'; // Reset cursor
+                element.style.left = `${initialLeft}px`; // Return to original position
+                
+                // Trigger the console message with the text of the dragged div
+                alert(element.textContent);
+
+                // Add a button to the second container
+               //******* addButtonToSecondContainer(element);
+            });
+        }
+
+
+
+         ////END OF TAGGING FUNCTIONALITY.
+
+
+
 
         socket.on('chat message', function(msg){
           //alert(".....")
@@ -125,6 +168,7 @@ socket.on('typing', (username) => {
        newMessageBubble.appendChild(newMessageNameStamp);
        newMessageBubble.appendChild(newMessageText);
        newMessageBubble.appendChild(newMessageTimeStamp); 
+        makeDraggable(newMessageBubble);
 
           //$('#messages').append($('<li>').text(msg));
           body.scrollTop = body.scrollHeight;
