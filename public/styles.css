@@ -74,7 +74,7 @@
              height: 80%;
              /*min-width: 40%;*/
              aspect-ratio: 1/1; /*replace and return width if adding more features to the div*/
-             backgroundd: grey;
+             background: red;
              display: flex;
              align-items: center;
              
