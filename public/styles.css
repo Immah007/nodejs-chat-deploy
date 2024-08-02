@@ -74,16 +74,17 @@
              height: 80%;
              /*min-width: 40%;*/
              aspect-ratio: 1/1; /*replace and return width if adding more features to the div*/
-             background: red;
+             background: redd;
              display: flex;
              align-items: center;
+             justify-content: flex-end;
              
         }
         #chat-menu{
-           width: 50%;
-           height: 50%;
+           width: 65%;
+           height: 65%;
            text-align: center;
-           background: grey;
+           background: greyy;
            font-size: .5rem;
            display: flex;
            align-items: center;
