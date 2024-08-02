@@ -77,7 +77,7 @@
              backgroundd: grey;
              display: flex;
              align-items: center;
-             justify-content: center;
+             
         }
         #chat-menu{
            width: 80%;
@@ -85,6 +85,9 @@
            text-align: center;
            backgroundd: grey;
            font-size: .5rem;
+           display: flex;
+           align-items: center;
+           justify-content: center;
         }
         #toast-text{
             width: 100%;
