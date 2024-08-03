@@ -126,7 +126,10 @@ socket.on('typing', (username) => {
             element.addEventListener('touchend', function() {
                 // End dragging
                 element.style.cursor = 'grab'; // Reset cursor
-                element.style.left = `${initialLeft}px`; // Return to original position
+                element.style.left = `${initialLeft}px`;
+                element.style.transition = '0.4s';
+                   setTimeout(function(){element.style.transition = 'none'},400); 
+                    // Return to original position
                 
                 // Trigger the console message with the text of the dragged div
                 consoleMessage(element.textContent);
