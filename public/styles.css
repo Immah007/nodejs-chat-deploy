@@ -126,6 +126,7 @@
     border-radius: 20px;
     margin-left: 42%;
     padding: 10px;
+    position: relative;
 }
 
 .nameStamp {
@@ -181,6 +182,7 @@
     border-radius: 20px;
     margin-left: 3%;
     padding: 10px;
+    position: relative;
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
 }
         #foot { max-width: 100vw;
