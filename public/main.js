@@ -5,7 +5,8 @@ let mic = document.getElementById("sendBtn");
         let sendIcon = document.getElementById("sendIcon");
         let body = document.getElementById("body");
         let input = document.getElementById("input");
-
+        let taggedMessage = '';
+        let taggedMessageDiv = document.getElementById("input-message-tag-text");
         var socket = io();    
         
         function hideMic(){sendIcon.style.display = "inline-block"; micSvg.style.display = "none" }
@@ -59,6 +60,7 @@ socket.on('typing', (username) => {
             //Your message processing code
         var messageToSend = input.value;
         socket.emit('chat message', messageToSend);
+        hideInputMsgTag();
 
         var hr = new Date().getHours();
         var min = new Date().getMinutes();
@@ -125,6 +127,7 @@ socket.on('typing', (username) => {
 
             element.addEventListener('touchend', function() {
                 // End dragging
+                showInputMsgTag();
                 element.style.cursor = 'grab'; // Reset cursor
                 element.style.left = `${initialLeft}px`;
                 element.style.transition = '0.4s';
@@ -140,9 +143,24 @@ socket.on('typing', (username) => {
         }
 
           function consoleMessage(text) {
+            taggedMessage = text;
+            taggedMessageDiv.innerText = taggedMessage;
             console.log(`Div has returned to its original position. Text: "${text}"`);
-          }
 
+          }
+          function showInputMsgTag(){
+            document.getElementById('msg-tag').style.display = 'flex';
+            document.getElementById('input-tagged-message').style.minHeight = '150%';
+            document.getElementById('input-tagged-message').style.padding = '4px';
+            
+
+          }
+          function hideInputMsgTag(){
+            document.getElementById('msg-tag').style.display = 'none';
+            document.getElementById('input-tagged-message').style.minHeight = '0';
+            document.getElementById('input-tagged-message').style.padding = '0';
+            
+          }
          ////END OF TAGGING FUNCTIONALITY.
 
 
