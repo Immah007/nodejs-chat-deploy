@@ -135,7 +135,7 @@
     border-radius: 4px;
     box-sizing: border-box;
     margin-bottom: 5px;
-    background: linear-gradient(to right, grey, transparent);
+    background: #EAEAEA;
     display: flex;
     overflow: hidden;
 }
