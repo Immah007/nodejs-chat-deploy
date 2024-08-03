@@ -104,6 +104,7 @@
         #body { width: 100%;
             flex-grow: 1; /* Takes up remaining space */
             overflow-y: auto;
+            overflow-x: hidden;
             scroll-behavior: smooth;
             padding-bottom: 5px;/* For visibility */
         }
