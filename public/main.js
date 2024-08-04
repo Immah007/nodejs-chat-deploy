@@ -80,7 +80,7 @@ socket.on('typing', (username) => {
            timeStamp.setAttribute("class", "timeStamp");
            timeStamp.innerText = time;
              
-
+           
            input.value = null;
            sendIcon.style.display = "none";
            micSvg.style.display = "inline-block";
@@ -153,14 +153,14 @@ socket.on('typing', (username) => {
             document.getElementById('msg-tag').style.display = 'flex';
             document.getElementById('input-tagged-message').style.minHeight = '150%';
             document.getElementById('input-tagged-message').style.padding = '4px';
-            
+            input.placeholder = "Reply to quoted...";
 
           }
           function hideInputMsgTag(){
             document.getElementById('msg-tag').style.display = 'none';
             document.getElementById('input-tagged-message').style.minHeight = '0';
             document.getElementById('input-tagged-message').style.padding = '0';
-            
+            input.placeholder = "Type a message...";
           }
          ////END OF TAGGING FUNCTIONALITY.
 
