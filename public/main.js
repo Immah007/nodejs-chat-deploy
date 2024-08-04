@@ -8,6 +8,9 @@ let mic = document.getElementById("sendBtn");
         let taggedMessage = '';
         let taggedMessageDiv = document.getElementById("input-message-tag-text");
         var socket = io();    
+        let messageTagIsActive = false;
+        let quotedSender = '';
+        let quotedMessage = '';
         
         function hideMic(){sendIcon.style.display = "inline-block"; micSvg.style.display = "none" }
         
@@ -66,6 +69,11 @@ socket.on('typing', (username) => {
         var min = new Date().getMinutes();
             if (min< 10) {min = "0"+ min};
         var time = hr+":"+min;
+
+
+       let chatBubbleContainer = document.createElement('div');  
+           chatBubbleContainer.setAttribute("class","messageBubbleContainer");
+           
       
        let textBox = document.createElement('div');  
            textBox.setAttribute("class","outMsg");
@@ -79,19 +87,41 @@ socket.on('typing', (username) => {
        let timeStamp = document.createElement('div');
            timeStamp.setAttribute("class", "timeStamp");
            timeStamp.innerText = time;
-             
+
+           
            
            input.value = null;
            sendIcon.style.display = "none";
            micSvg.style.display = "inline-block";
 
-
-           body.appendChild(textBox); 
+            
+           body.appendChild(chatBubbleContainer); 
+           if(messageTagIsActive == true){
+            //alert('');
+            let bubbleTag = document.createElement('div');
+                bubbleTag.setAttribute('id','message-tag');
+            let bubbleTagLabel = document.createElement('div');
+                bubbleTagLabel.setAttribute('id','message-tag-label');
+                bubbleTag.style.color = 'grey';
+                bubbleTagLabel.innerText = 'Sender';
+            let bubbleTagMessage = document.createElement('div'); 
+                bubbleTagMessage.setAttribute('id','message-tag-text');
+                bubbleTagMessage.style.color = 'black';
+                bubbleTagMessage.innerText = quotedMessage;       
+                //bubbleTag.innerText = quotedMessage;
+                bubbleTag.appendChild(bubbleTagLabel);
+                bubbleTag.appendChild(bubbleTagMessage);
+                chatBubbleContainer.appendChild(bubbleTag);
+           }
+           chatBubbleContainer.appendChild(textBox);
            textBox.appendChild(nameStamp);
+           
            textBox.appendChild(messageText);
            textBox.appendChild(timeStamp);       
-           makeDraggable(textBox);
+           makeDraggable(chatBubbleContainer);
            body.scrollTop = body.scrollHeight;
+
+           messageTagIsActive = false;
 
 
         //LOGIC FOR PROCESSING INCOMING MESSAGES...........
@@ -132,11 +162,12 @@ socket.on('typing', (username) => {
                 element.style.left = `${initialLeft}px`;
                 element.style.transition = '0.4s';
                 obtainedText = element.querySelector('p');
+                quotedMessage = obtainedText.innerText;
                    setTimeout(function(){element.style.transition = 'none'},400); 
                     // Return to original position
                 
                 // Trigger the console message with the text of the dragged div
-                consoleMessage(obtainedText.innerText);
+                consoleMessage(quotedMessage);
 
                 // Add a button to the second container
                //******* addButtonToSecondContainer(element);
@@ -154,6 +185,7 @@ socket.on('typing', (username) => {
             document.getElementById('input-tagged-message').style.minHeight = '150%';
             document.getElementById('input-tagged-message').style.padding = '4px';
             input.placeholder = "Reply to quoted...";
+            messageTagIsActive = true;
 
           }
           function hideInputMsgTag(){
@@ -161,6 +193,10 @@ socket.on('typing', (username) => {
             document.getElementById('input-tagged-message').style.minHeight = '0';
             document.getElementById('input-tagged-message').style.padding = '0';
             input.placeholder = "Type a message...";
+          }
+          function cancelMessageTag(){
+            messageTagIsActive = false;
+            hideInputMsgTag();
           }
          ////END OF TAGGING FUNCTIONALITY.
 
@@ -313,5 +349,4 @@ socket.on('typing', (username) => {
             colorIdentity = 0;    
            }
         }
-        
 
