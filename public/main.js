@@ -131,11 +131,12 @@ socket.on('typing', (username) => {
                 element.style.cursor = 'grab'; // Reset cursor
                 element.style.left = `${initialLeft}px`;
                 element.style.transition = '0.4s';
+                obtainedText = element.querySelector('p');
                    setTimeout(function(){element.style.transition = 'none'},400); 
                     // Return to original position
                 
                 // Trigger the console message with the text of the dragged div
-                consoleMessage(element.textContent);
+                consoleMessage(obtainedText.innerText);
 
                 // Add a button to the second container
                //******* addButtonToSecondContainer(element);
@@ -313,3 +314,4 @@ socket.on('typing', (username) => {
            }
         }
         
+
