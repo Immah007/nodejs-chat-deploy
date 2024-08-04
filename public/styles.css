@@ -160,6 +160,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrapp;
+    word-break: break-word;
 }
 #message-tag-media-container{
     height: 100%;
