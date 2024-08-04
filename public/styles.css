@@ -130,22 +130,25 @@
     position: relative;
 }
 #msg-tag, #message-tag{
-    max-width: 100%;
+    width: 100%;
     min-height: 2rem;
     border-radius: 4px;
     box-sizing: border-box;
     margin-bottom: 5px;
-    background: #EAEAEA;
+    background: #eaeaea;
     display: flex;
+    flex-grow: 0;
     overflow: hidden;
+    position: relative;
 }
 #message-tag-text-container{
     width: 100%;
     box-sizing: border-box;
     min-height: 2rem;
     gap: 5px;
-    
-    border-left: 4px solid #00bfff;
+    flex-grow: 0;
+    border-left: 4px solid #28282B;
+    padding-left: 5px;
    
 }
 #message-tag-label{
@@ -159,9 +162,13 @@
     white-space: nowrapp;
 }
 #message-tag-media-container{
-    height: 2rem;
+    height: 100%;
     aspect-ratio: 1/1;
+    position: absolute;
+    right: 0;
+    top: 0;
     background: pink;
+    background: transparent;
 }
 .nameStamp {
     width: 100%;
@@ -274,13 +281,14 @@
 .tag-cancel{
     width: 1.5rem;
     height: 1.5rem;
-    
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    border-radius: 50%;
+    right: 7px;
+    top: 7px;
 }
 
 .inputhold {
