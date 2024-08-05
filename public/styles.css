@@ -125,31 +125,44 @@ p {
 #body {
     width: 100%;
     flex-grow: 1;
+    height: 12rem;
     /* Takes up remaining space */
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    padding: 0;
+    backgroundd: blueviolet;
     padding-bottom: 5px;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+    pointer-events: auto;
+    touch-action: pan-y;
     /* For visibility */
 }
 
 .messageBubbleContainer {
 
     font-weight: boldd;
-    max-width: 50%;
-
+    width: 100%;
+    box-sizing: border-box;
     min-height: 20px;
     background: var(--main-color);
     flex-shrink: 0;
     color: white;
     word-break: break-word;
-    align-self: right;
+    align-self: center;
+    justify-self: center;
     backgroundd: red;
     margin-top: 20px;
-    margin-left: 5px;
+    
+    padding-right: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
 
 
-    margin-left: 42%;
+    margin-leftt: 42%;
 
     position: relative;
 }
@@ -157,7 +170,7 @@ p {
 .outMsg {
     font-family: 'Product Sans', sans-serif;
     font-weight: boldd;
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
     min-height: 20px;
     background: var(--main-color);
@@ -167,10 +180,10 @@ p {
     align-self: right;
     background: #28282B;
     margin-top: 0px;
-
+    align-self: flex-end;
     text-align: left;
     border-radius: 20px;
-
+    position: relative;
     padding: 10px;
 
 }
@@ -186,10 +199,11 @@ p {
     flex-grow: 0;
     overflow: hidden;
     position: relative;
+    
 }
 
 #message-tag {
-    width: 100%;
+    width: 50%;
     height: 2.2rem;
     border-radius: 4px;
     box-sizing: border-box;
@@ -200,6 +214,7 @@ p {
     flex-grow: 0;
     padding-left: .5rem;
     overflow: hidden;
+    align-self: flex-end;
     position: relative;
 }
 
@@ -278,17 +293,16 @@ p {
     min-height: 20px;
     background: rgb(255, 255, 255, .4);
     backdrop-filter: blur(2px);
-    margin: 0 auto;
+  
     flex-shrink: 0;
     color: black;
     word-break: break-word;
     align-self: left;
     /* border: 2px solid var(--main-color); */
-    margin-top: 10px;
-    margin-left: 5px;
+   
     text-align: left;
     border-radius: 20px;
-    margin-left: 3%;
+    
     padding: 10px;
     position: relative;
     box-shadow: 2px 2px 4px rgb(39, 39, 39);
