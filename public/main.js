@@ -242,7 +242,7 @@ socket.on('typing', (username) => {
        newMessageNameStamp.innerText = "Sender";
    let newMessageText = document.createElement('p');
        newMessageText.setAttribute("class","text-message");        
-       newMessageText.innerText = msg;
+       newMessageText.innerText = msg.messageToSend;
    let newMessageTimeStamp = document.createElement('div');
        newMessageTimeStamp.setAttribute("class", "timeStamp");
        newMessageTimeStamp.innerText = newMessageTime;
