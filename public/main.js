@@ -75,9 +75,9 @@ socket.on('typing', (username) => {
         function sendMsg(){
            //alert(typeof(input.value));
             //Your message processing code
-            if(input.value == null){
-                 alert('message can be sent');
-            };
+          if(input.value.trim() !== ''){
+                 //alert('message can be sent');
+           // };
         var messageToSend = input.value;
         socket.emit('chat message', {chatRoom, messageToSend});
         hideInputMsgTag();
@@ -141,7 +141,7 @@ socket.on('typing', (username) => {
 
            messageTagIsActive = false;
 
-
+          }
         //LOGIC FOR PROCESSING INCOMING MESSAGES...........
     
         //<<<LOGIC FOR PROCESSING IICOMING MESSAGES
