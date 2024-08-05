@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const { Socket } = require('dgram');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,18 +17,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  //JOIN A CHAT ROOM
+socket.on('joinRoom', (chatRoom) => {
+  socket.join(chatRoom);
+  console.log('USER JOINED ROOM:' + chatRoom);
+});  
+
   // Handle chat messages
   socket.on('chat message', (msg) => { 
-    console.log('message: ' + msg);
+    console.log('message: ' + msg.messageToSend);
     // Broadcast the message to everyone
-    socket.broadcast.emit('chat message', msg);
+    socket.to(msg.chatRoom).emit('chat message', msg);
   });
 
   
-  socket.on('typing', (username) => {
+  socket.on('typing', (typ) => {
     console.log("user is typing......");
-   // socket.broadcast.emit('typing', 'text is here');
-    socket.broadcast.emit('typing');
+    //socket.broadcast.emit('typing', 'text is here');
+
+    socket.to(typ.chatRoom).emit('typing', typ.username);
+  
 
 });
 
@@ -39,7 +48,7 @@ io.on('connection', (socket) => {
 
 // Serve index.html for any other GET request
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public' , 'anchor.html'));
+  res.sendFile(path.join(__dirname, 'public' , '/index.html'));
 });
 
 // Start the server
