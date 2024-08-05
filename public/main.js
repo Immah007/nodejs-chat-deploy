@@ -7,7 +7,21 @@ let mic = document.getElementById("sendBtn");
         let input = document.getElementById("input");
         let taggedMessage = '';
         let taggedMessageDiv = document.getElementById("input-message-tag-text");
-        var socket = io();    
+        var socket = io(); 
+
+        
+        //alert('You can now chat safely and securely with anyone in the world! You simply need to enter the chat ID and start. Anyone in the world can access you via the chat ID.')
+        var chatRoom = prompt('Enter the chat ID to start up');
+            if(chatRoom == '' || chatRoom == null){
+               // alert('chatroom is not set');
+                chatRoom = 'default';
+            };
+            
+
+            //JOIN THE SPECIFIC CHAT ROOM>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            socket.emit('joinRoom', chatRoom);
+
+
         let messageTagIsActive = false;
         let quotedSender = '';
         let quotedMessage = '';
@@ -20,7 +34,7 @@ let mic = document.getElementById("sendBtn");
 input.addEventListener('input', function() {
 
     let username = 'USERNAME TYPING';
-    socket.emit('typing', username);
+    socket.emit('typing', {chatRoom , username});
   // Check if the input value is not empty
   if (input.value.trim() !== ' ') {
     // Enable the button
@@ -59,10 +73,13 @@ socket.on('typing', (username) => {
 
         //SENDING THE MESSAGE...
         function sendMsg(){
-
+           //alert(typeof(input.value));
             //Your message processing code
+            if(input.value == null){
+                 alert('message can be sent');
+            };
         var messageToSend = input.value;
-        socket.emit('chat message', messageToSend);
+        socket.emit('chat message', {chatRoom, messageToSend});
         hideInputMsgTag();
 
         var hr = new Date().getHours();
@@ -100,6 +117,7 @@ socket.on('typing', (username) => {
             //alert('');
             let bubbleTag = document.createElement('div');
                 bubbleTag.setAttribute('id','message-tag');
+                
             let bubbleTagLabel = document.createElement('div');
                 bubbleTagLabel.setAttribute('id','message-tag-label');
                 bubbleTag.style.color = 'grey';
@@ -118,7 +136,7 @@ socket.on('typing', (username) => {
            
            textBox.appendChild(messageText);
            textBox.appendChild(timeStamp);       
-           makeDraggable(chatBubbleContainer);
+           makeDraggable(textBox);
            body.scrollTop = body.scrollHeight;
 
            messageTagIsActive = false;
@@ -134,6 +152,7 @@ socket.on('typing', (username) => {
         ///MESSAGE TAGGING FUNCTIONALITY LPGOC......
         
           function makeDraggable(element) {
+            
             let startX, initialLeft;
 
             element.addEventListener('touchstart', function(event) {
@@ -142,7 +161,7 @@ socket.on('typing', (username) => {
                 startX = touch.clientX;
                 initialLeft = parseInt(element.style.left, 10) || 0;
                 element.style.cursor = 'grabbing'; // Change cursor
-                event.preventDefault();
+                //event.preventDefault();
             });
 
             element.addEventListener('touchmove', function(event) {
@@ -152,7 +171,7 @@ socket.on('typing', (username) => {
                 const newLeft = Math.max(initialLeft + dx, 0); // Prevent moving to the left
 
                 element.style.left = `${newLeft}px`;
-                event.preventDefault();
+                //event.preventDefault();
             });
 
             element.addEventListener('touchend', function() {
@@ -198,19 +217,23 @@ socket.on('typing', (username) => {
             messageTagIsActive = false;
             hideInputMsgTag();
           }
+             
          ////END OF TAGGING FUNCTIONALITY.
 
 
 
 
         socket.on('chat message', function(msg){
-          //alert(".....")
+       // alert(".....")
 
           var newMessageHour = new Date().getHours();
     var newMessageMinute = new Date().getMinutes();
         if (newMessageMinute< 10) {newMessageMinute = "0"+ newMessageMinute};
     var newMessageTime = newMessageHour+":"+newMessageMinute;
-  
+
+
+   let chatBubbleContainer = document.createElement('div');  
+       chatBubbleContainer.setAttribute("class","messageBubbleContainer");
    let newMessageBubble = document.createElement('div');  
        newMessageBubble.setAttribute("class","inMsg");
        newMessageBubble.setAttribute("id","sent");
@@ -224,7 +247,8 @@ socket.on('typing', (username) => {
        newMessageTimeStamp.setAttribute("class", "timeStamp");
        newMessageTimeStamp.innerText = newMessageTime;
 
-       body.appendChild(newMessageBubble); 
+       body.appendChild(chatBubbleContainer); 
+       chatBubbleContainer.appendChild(newMessageBubble);
        newMessageBubble.appendChild(newMessageNameStamp);
        newMessageBubble.appendChild(newMessageText);
        newMessageBubble.appendChild(newMessageTimeStamp); 
@@ -349,4 +373,3 @@ socket.on('typing', (username) => {
             colorIdentity = 0;    
            }
         }
-
