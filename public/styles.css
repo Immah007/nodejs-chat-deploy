@@ -408,6 +408,7 @@ p {
     border-radius: 2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 0rem;
     padding-right: 7rem;
     padding-left: 3rem;
