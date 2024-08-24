@@ -406,6 +406,8 @@ p {
     flex: 1;
     box-sizing: border-box;
     border-radius: 2rem;
+    display: flex;
+    align-items: center;
     margin: 0rem;
     padding-right: 7rem;
     padding-left: 3rem;
