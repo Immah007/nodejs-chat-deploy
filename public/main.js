@@ -11,7 +11,7 @@ let mic = document.getElementById("sendBtn");
 
         
         //alert('You can now chat safely and securely with anyone in the world! You simply need to enter the chat ID and start. Anyone in the world can access you via the chat ID.')
-        var chatRoom = prompt('Enter the chat ID to start up');
+        var chatRoom = prompt('Type a unique chat password and share it with your friend to chat securely with them, or Enter a chat password shared with your friend to chat securely with them');
             if(chatRoom == '' || chatRoom == null){
                // alert('chatroom is not set');
                 chatRoom = 'default';
