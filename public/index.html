@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant Chat App</title>
+    <title>Elegant Chat - Real-time Chat Rooms</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00bfff;
             --primary-dark: #0099cc;
+            --primary-light: #e6f7ff;
             --matte-black: #28282B;
             --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
             --dark-gray: #343a40;
             --white: #ffffff;
             --text-dark: #212529;
             --text-light: #f8f9fa;
             --text-muted: #6c757d;
-            --border-radius: 12px;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
             --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --message-in: #ffffff;
             --message-out: #00bfff;
@@ -33,11 +40,11 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            font-family: 'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background-color: var(--light-gray);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: var(--text-dark);
             height: 100vh;
             display: flex;
@@ -46,96 +53,133 @@
             overflow: hidden;
         }
 
-        /* Entry Container (Modal-like) */
+        /* Entry Container */
         .entry-container {
-            width: 100%;
-            max-width: 420px;
+            width: 95%;
+            max-width: 480px;
             padding: 40px;
             background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             text-align: center;
-            animation: fadeInUp 0.6s;
+            animation: fadeInUp 0.6s ease-out;
             z-index: 100;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #764ba2);
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .entry-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), #0062ff);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary), #667eea);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
+            margin: 0 auto 28px;
             color: white;
-            font-size: 32px;
+            font-size: 36px;
+            box-shadow: 0 8px 20px rgba(0, 191, 255, 0.3);
+            transition: var(--transition);
+        }
+
+        .entry-logo:hover {
+            transform: rotate(15deg) scale(1.1);
         }
 
         .entry-header {
-            margin-bottom: 32px;
+            margin-bottom: 36px;
         }
 
         .entry-header h1 {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
             color: var(--matte-black);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, var(--primary), #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .entry-header p {
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         /* Form Elements */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             text-align: left;
+            position: relative;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
             color: var(--matte-black);
-            font-size: 14px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: var(--primary);
         }
 
         .form-input {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: var(--border-radius);
-            font-size: 15px;
+            padding: 16px 20px;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
             transition: var(--transition);
-            background-color: var(--light-gray);
+            background-color: var(--white);
+            color: var(--text-dark);
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+            box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.15);
             background-color: var(--white);
         }
 
-        .form-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 28px;
+        .form-input::placeholder {
+            color: #adb5bd;
         }
 
-        .btn {
+        /* Room Actions */
+        .room-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .room-action-btn {
+            flex: 1;
             padding: 14px;
             border: none;
-            border-radius: var(--border-radius);
-            font-size: 15px;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
@@ -143,102 +187,156 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            background: var(--light-gray);
+            color: var(--text-dark);
+            border: 2px solid transparent;
+        }
+
+        .room-action-btn.active {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .room-action-btn:hover:not(.active) {
+            background: var(--medium-gray);
+            transform: translateY(-2px);
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(90deg, var(--primary), #667eea);
             color: white;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background-color: var(--light-gray);
-            color: var(--matte-black);
-            border: 1px solid #e0e0e0;
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .btn-secondary:hover {
-            background-color: #e9ecef;
-            transform: translateY(-2px);
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
         }
 
+        /* Divider */
         .divider {
             display: flex;
             align-items: center;
-            margin: 16px 0;
+            margin: 24px 0;
             color: var(--text-muted);
             font-size: 14px;
+            font-weight: 500;
         }
 
         .divider::before, .divider::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--medium-gray);
         }
 
         .divider::before {
-            margin-right: 16px;
+            margin-right: 20px;
         }
 
         .divider::after {
-            margin-left: 16px;
+            margin-left: 20px;
         }
 
-        /* Chat Container - Initially Hidden */
+        /* Chat Container */
         #chat-container {
             display: none;
             width: 100%;
             height: 100vh;
             flex-direction: column;
-            background-color: var(--white);
+            background-color: #f0f2f5;
+            position: relative;
         }
 
         /* Header */
         #header {
             height: 70px;
-            background-color: var(--matte-black);
+            background: linear-gradient(90deg, var(--matte-black), #1a1a1a);
             color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 24px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
             flex-shrink: 0;
+            position: relative;
+            z-index: 10;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .profile-pic {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), #0062ff);
+            background: linear-gradient(135deg, var(--primary), #667eea);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
         }
 
         .profile-info h3 {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 3px;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
         .profile-info p {
-            font-size: 12px;
+            font-size: 13px;
             color: #aaa;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .online-dot {
@@ -247,65 +345,144 @@
             height: 8px;
             background-color: var(--online-indicator);
             border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .typing-text {
             color: var(--typing-indicator);
             font-style: italic;
+            animation: typingPulse 1.5s infinite;
+        }
+
+        @keyframes typingPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .room-info {
+            font-size: 12px;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
+        .room-info i {
+            font-size: 10px;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .header-icon {
-            width: 36px;
-            height: 36px;
+        .header-btn {
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             border-radius: 50%;
             transition: var(--transition);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
+            border: none;
+            position: relative;
         }
 
-        .header-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .header-btn i {
+            font-size: 18px;
+        }
+
+        .user-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+            font-weight: 600;
         }
 
         /* Chat Body */
         #chat-body {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            background-color: #f5f7fb;
-        }
-
-        .message-container {
-            display: flex;
-            flex-direction: column;
-            max-width: 80%;
-            align-self: flex-start;
-        }
-
-        .message-container.outgoing {
-            align-self: flex-end;
-        }
-
-        .message-bubble {
-            padding: 12px 16px;
-            border-radius: 18px;
+            gap: 20px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
             position: relative;
-            word-break: break-word;
-            animation: fadeIn 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            max-width: 100%;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(90deg, var(--primary), #667eea);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 24px;
+            text-align: center;
+            animation: slideDown 0.5s ease-out;
+            box-shadow: var(--box-shadow-light);
+        }
+
+        .welcome-banner h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .welcome-banner p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .room-id-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 16px;
+            border-radius: var(--border-radius-sm);
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        /* System Message */
+        .system-message {
+            text-align: center;
+            margin: 10px 0;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: var(--border-radius);
+            color: var(--text-muted);
+            font-size: 13px;
+            animation: fadeIn 0.5s;
+            border-left: 4px solid var(--primary);
         }
 
         @keyframes fadeIn {
@@ -313,285 +490,817 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Message Container */
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            animation: messageAppear 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes messageAppear {
+            from { opacity: 0; transform: translateY(20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .message-container.incoming {
+            align-self: flex-start;
+        }
+
+        .message-container.outgoing {
+            align-self: flex-end;
+        }
+
+        /* Message Bubble */
+        .message-bubble {
+            padding: 16px 20px;
+            border-radius: 22px;
+            position: relative;
+            word-break: break-word;
+            box-shadow: var(--box-shadow-light);
+            max-width: 100%;
+            line-height: 1.5;
+        }
+
         .incoming .message-bubble {
-            background-color: var(--message-in);
+            background-color: var(--white);
             color: var(--text-dark);
-            border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
         }
 
         .outgoing .message-bubble {
-            background-color: var(--message-out);
+            background: linear-gradient(90deg, var(--primary), #667eea);
             color: white;
-            border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
         }
 
         .message-sender {
-            font-size: 12px;
-            font-weight: 500;
-            margin-bottom: 5px;
-            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .message-time {
             font-size: 11px;
-            margin-top: 5px;
+            margin-top: 8px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 3px;
-        }
-
-        .incoming .message-time {
-            color: var(--text-muted);
-        }
-
-        .outgoing .message-time {
-            color: rgba(255, 255, 255, 0.7);
+            gap: 4px;
+            opacity: 0.8;
         }
 
         .message-status {
             font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .message-status i {
+            font-size: 12px;
+        }
+
+        /* Message Types */
+        .message-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* File Message */
+        .file-message {
+            margin-top: 12px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 300px;
+        }
+
+        .incoming .file-message {
+            background: var(--light-gray);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .file-preview {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-preview:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .incoming .file-preview:hover {
+            background: var(--medium-gray);
+        }
+
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), #667eea);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .incoming .file-icon {
+            background: var(--matte-black);
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-size {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .file-download {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .file-download:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .incoming .file-download {
+            background: var(--primary);
+            color: white;
+        }
+
+        .incoming .file-download:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Image Message */
+        .image-message {
+            margin-top: 12px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            max-width: 300px;
+            box-shadow: var(--box-shadow-light);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 3px solid transparent;
+        }
+
+        .image-message:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-caption {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.1);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .incoming .image-caption {
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+
+        /* Reply Preview */
+        .reply-preview {
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .reply-preview:hover {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .reply-sender {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .reply-text {
+            font-size: 13px;
+            opacity: 0.9;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         /* Footer */
         #chat-footer {
-            padding: 15px 20px;
-            background-color: white;
+            padding: 20px 24px;
+            background-color: var(--white);
             display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            align-items: flex-end;
+            gap: 16px;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.08);
             flex-shrink: 0;
+            position: relative;
         }
 
         .input-container {
             flex: 1;
             position: relative;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
         }
 
         #message-input {
             width: 100%;
-            padding: 12px 50px 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 24px;
+            padding: 18px 70px 18px 20px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 28px;
             font-size: 16px;
             resize: none;
-            max-height: 120px;
-            min-height: 50px;
+            max-height: 150px;
+            min-height: 56px;
             font-family: inherit;
             transition: var(--transition);
+            background: var(--white);
+            color: var(--text-dark);
         }
 
         #message-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
+            box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.15);
         }
 
         .input-actions {
             position: absolute;
-            right: 10px;
+            right: 12px;
+            bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
 
-        .input-action {
+        .input-btn {
             background: none;
             border: none;
             color: var(--text-muted);
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .input-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        #send-button {
+            background: linear-gradient(90deg, var(--primary), #667eea);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        #send-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
+        }
+
+        #send-button i {
+            font-size: 20px;
+        }
+
+        #file-input, #image-input {
+            display: none;
+        }
+
+        /* Attachment Preview */
+        .attachment-preview {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 12px;
+            display: none;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .attachment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .attachment-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-attachment {
+            background: none;
+            border: none;
+            color: var(--danger);
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .remove-attachment:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .attachment-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .attachment-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #667eea);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .attachment-info {
+            flex: 1;
+        }
+
+        .attachment-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .attachment-size {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--matte-black);
+            color: white;
+            padding: 16px 28px;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            max-width: 90%;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast i {
             font-size: 18px;
+        }
+
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        .toast.warning { background: var(--warning); color: var(--text-dark); }
+        .toast.info { background: var(--primary); }
+
+        /* Users Modal */
+        .users-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .users-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .users-modal-content {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .users-modal.show .users-modal-content {
+            transform: translateY(0);
+        }
+
+        .users-modal-header {
+            padding: 24px;
+            background: linear-gradient(90deg, var(--primary), #667eea);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .users-modal-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
             width: 36px;
             height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            cursor: pointer;
             transition: var(--transition);
         }
 
-        .input-action:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-            color: var(--primary);
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        #send-button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
+        .users-list {
+            padding: 24px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 12px;
+            transition: var(--transition);
+            background: var(--light-gray);
+        }
+
+        .user-item:hover {
+            background: var(--medium-gray);
+            transform: translateX(5px);
+        }
+
+        .user-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), #667eea);
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        #send-button:hover {
-            background-color: var(--primary-dark);
-            transform: scale(1.05);
-        }
-
-        #send-button i {
+            color: white;
+            font-weight: 600;
             font-size: 18px;
         }
 
-        #file-input {
-            display: none;
+        .user-info {
+            flex: 1;
         }
 
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--matte-black);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 24px;
-            font-size: 14px;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s;
-            box-shadow: var(--box-shadow);
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-status {
+            font-size: 12px;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .toast.show {
-            opacity: 1;
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        /* Room Info */
-        .room-info {
-            background-color: #e9f7fe;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid #b3e5fc;
-        }
-
-        .room-id {
-            font-family: monospace;
-            background-color: white;
-            padding: 4px 8px;
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
             border-radius: 4px;
-            margin: 0 4px;
-            border: 1px solid #ddd;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
 
         /* Responsive */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .entry-container {
-                padding: 30px 24px;
-                margin: 0 16px;
+                padding: 32px 24px;
+                margin: 16px;
+            }
+
+            .entry-header h1 {
+                font-size: 28px;
+            }
+
+            .message-container {
+                max-width: 90%;
+            }
+
+            #header {
+                padding: 0 16px;
+            }
+
+            #chat-footer {
+                padding: 16px;
+            }
+
+            .welcome-banner {
+                padding: 16px;
+            }
+
+            .room-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .entry-logo {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
             }
 
             .entry-header h1 {
                 font-size: 24px;
             }
 
-            .message-container {
-                max-width: 90%;
+            .form-input, .btn {
+                padding: 14px 16px;
+            }
+
+            #message-input {
+                padding: 14px 60px 14px 16px;
+            }
+
+            .header-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .profile-pic {
+                width: 38px;
+                height: 38px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Entry Form (Initially Visible) -->
+    <!-- Entry Container -->
     <div id="entry-container" class="entry-container">
         <div class="entry-logo">
             <i class="fas fa-comments"></i>
         </div>
         
         <div class="entry-header">
-            <h1>Welcome to Elegant Chat</h1>
-            <p>Connect with friends in beautiful, real-time conversations</p>
+            <h1>Elegant Chat Rooms</h1>
+            <p>Connect with anyone in real-time with beautiful, feature-rich chat rooms</p>
+        </div>
+        
+        <div class="room-actions">
+            <button class="room-action-btn active" id="join-room-btn">
+                <i class="fas fa-sign-in-alt"></i> Join Room
+            </button>
+            <button class="room-action-btn" id="create-room-btn">
+                <i class="fas fa-plus-circle"></i> Create Room
+            </button>
         </div>
         
         <div class="form-group">
-            <label for="username" class="form-label">Your Name</label>
-            <input type="text" id="username" class="form-input" placeholder="Enter your name" required>
+            <label for="username">
+                <i class="fas fa-user"></i> Your Name
+            </label>
+            <input type="text" id="username" class="form-input" placeholder="Enter your display name" required>
         </div>
         
         <div class="form-group">
-            <label for="room-id" class="form-label">Room ID</label>
-            <input type="text" id="room-id" class="form-input" placeholder="Enter room ID to join">
-            <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">Leave empty to create a new room</p>
+            <label for="room-id">
+                <i class="fas fa-door-open"></i> Room ID
+            </label>
+            <input type="text" id="room-id" class="form-input" placeholder="Enter room ID to join" id="room-id-input">
         </div>
         
         <div class="form-actions">
-            <button id="join-button" class="btn btn-primary">
-                <i class="fas fa-sign-in-alt"></i> Join Room
+            <button id="start-chat-btn" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> Start Chatting
             </button>
             
-            <div class="divider">or</div>
+            <div class="divider">Quick Join</div>
             
-            <button id="create-button" class="btn btn-secondary">
-                <i class="fas fa-plus-circle"></i> Create New Room
-            </button>
+            <div class="quick-rooms">
+                <button class="room-action-btn" data-room="general">
+                    <i class="fas fa-globe"></i> General
+                </button>
+                <button class="room-action-btn" data-room="random">
+                    <i class="fas fa-random"></i> Random
+                </button>
+                <button class="room-action-btn" data-room="friends">
+                    <i class="fas fa-users"></i> Friends
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Chat Container (Initially Hidden) -->
+    <!-- Chat Container -->
     <div id="chat-container">
         <!-- Header -->
         <header id="header">
             <div class="header-left">
-                <div class="profile-pic">
+                <div class="profile-pic" id="user-avatar">
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="profile-info">
-                    <h3 id="profile-name">Chat Room</h3>
+                    <h3 id="profile-name">Loading...</h3>
                     <p id="status-indicator">
                         <span class="online-dot"></span>
-                        <span id="status-text">Online</span>
+                        <span id="status-text">Connecting...</span>
                         <span id="typing-text" class="typing-text" style="display: none;">typing...</span>
                     </p>
+                    <div class="room-info" id="room-info-badge">
+                        <i class="fas fa-hashtag"></i>
+                        <span id="current-room-name">...</span>
+                    </div>
                 </div>
             </div>
             <div class="header-right">
-                <div class="header-icon" title="Room Info" id="room-info-btn">
+                <button class="header-btn" id="users-btn" title="Online Users">
+                    <i class="fas fa-users"></i>
+                    <span class="user-count" id="user-count">0</span>
+                </button>
+                <button class="header-btn" id="room-info-btn" title="Room Info">
                     <i class="fas fa-info-circle"></i>
-                </div>
-                <div class="header-icon" title="Leave Room" id="leave-room-btn">
+                </button>
+                <button class="header-btn" id="leave-btn" title="Leave Room">
                     <i class="fas fa-sign-out-alt"></i>
-                </div>
+                </button>
             </div>
         </header>
 
         <!-- Chat Body -->
         <main id="chat-body">
-            <!-- Room info will be displayed here on join -->
-            <div id="room-info-display" class="room-info" style="display: none;">
-                <i class="fas fa-door-open"></i>
-                <span>Room ID: <span id="current-room-id" class="room-id"></span></span>
-                <span style="margin-left: 10px;">Share this ID with friends</span>
-            </div>
+            <!-- Welcome message will be inserted here -->
         </main>
 
-        <!-- Footer with Input -->
+        <!-- Attachment Preview -->
+        <div id="attachment-preview" class="attachment-preview">
+            <div class="attachment-header">
+                <div class="attachment-title">
+                    <i class="fas fa-paperclip"></i>
+                    <span>Attachment Preview</span>
+                </div>
+                <button class="remove-attachment" id="remove-attachment-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="attachment-content">
+                <div class="attachment-icon" id="attachment-icon">
+                    <i class="fas fa-file"></i>
+                </div>
+                <div class="attachment-info">
+                    <div class="attachment-name" id="attachment-name">file.name</div>
+                    <div class="attachment-size" id="attachment-size">0 KB</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
         <footer id="chat-footer">
             <div class="input-container">
-                <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+                <textarea id="message-input" placeholder="Type your message here..." rows="1"></textarea>
                 <div class="input-actions">
-                    <button class="input-action" id="emoji-button" title="Emoji">
-                        <i class="far fa-smile"></i>
+                    <button class="input-btn" id="image-btn" title="Send Image">
+                        <i class="fas fa-image"></i>
                     </button>
-                    <button class="input-action" id="attach-button" title="Attach file">
+                    <button class="input-btn" id="file-btn" title="Send File">
                         <i class="fas fa-paperclip"></i>
                     </button>
+                    <button class="input-btn" id="emoji-btn" title="Emoji">
+                        <i class="far fa-smile"></i>
+                    </button>
                 </div>
-                <input type="file" id="file-input" accept="image/*, .pdf, .doc, .docx, .txt">
+                <input type="file" id="file-input" accept=".pdf,.doc,.docx,.txt,.zip,.rar">
+                <input type="file" id="image-input" accept="image/*">
             </div>
             <button id="send-button">
                 <i class="fas fa-paper-plane"></i>
@@ -599,19 +1308,36 @@
         </footer>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Users Modal -->
+    <div class="users-modal" id="users-modal">
+        <div class="users-modal-content">
+            <div class="users-modal-header">
+                <h3><i class="fas fa-users"></i> Online Users</h3>
+                <button class="close-modal" id="close-users-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="users-list" id="users-list">
+                <!-- Users will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+    <!-- Socket.IO CDN -->
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
+            // ============= DOM Elements =============
             const entryContainer = document.getElementById('entry-container');
             const chatContainer = document.getElementById('chat-container');
             const usernameInput = document.getElementById('username');
-            const roomIdInput = document.getElementById('room-id');
-            const joinButton = document.getElementById('join-button');
-            const createButton = document.getElementById('create-button');
+            const roomIdInput = document.getElementById('room-id-input');
+            const startChatBtn = document.getElementById('start-chat-btn');
+            const joinRoomBtn = document.getElementById('join-room-btn');
+            const createRoomBtn = document.getElementById('create-room-btn');
             const profileName = document.getElementById('profile-name');
             const statusText = document.getElementById('status-text');
             const typingText = document.getElementById('typing-text');
@@ -619,194 +1345,585 @@
             const messageInput = document.getElementById('message-input');
             const sendButton = document.getElementById('send-button');
             const fileInput = document.getElementById('file-input');
-            const attachButton = document.getElementById('attach-button');
-            const emojiButton = document.getElementById('emoji-button');
-            const toast = document.getElementById('toast');
+            const imageInput = document.getElementById('image-input');
+            const fileBtn = document.getElementById('file-btn');
+            const imageBtn = document.getElementById('image-btn');
+            const emojiBtn = document.getElementById('emoji-btn');
+            const usersBtn = document.getElementById('users-btn');
             const roomInfoBtn = document.getElementById('room-info-btn');
-            const leaveRoomBtn = document.getElementById('leave-room-btn');
-            const roomInfoDisplay = document.getElementById('room-info-display');
-            const currentRoomIdSpan = document.getElementById('current-room-id');
+            const leaveBtn = document.getElementById('leave-btn');
+            const toast = document.getElementById('toast');
+            const userCount = document.getElementById('user-count');
+            const currentRoomName = document.getElementById('current-room-name');
+            const userAvatar = document.getElementById('user-avatar');
+            const roomInfoBadge = document.getElementById('room-info-badge');
+            const attachmentPreview = document.getElementById('attachment-preview');
+            const attachmentName = document.getElementById('attachment-name');
+            const attachmentSize = document.getElementById('attachment-size');
+            const attachmentIcon = document.getElementById('attachment-icon');
+            const removeAttachmentBtn = document.getElementById('remove-attachment-btn');
+            const usersModal = document.getElementById('users-modal');
+            const usersList = document.getElementById('users-list');
+            const closeUsersModal = document.getElementById('close-users-modal');
+            const quickRoomButtons = document.querySelectorAll('.quick-rooms .room-action-btn');
 
-            // App State
+            // ============= App State =============
             let socket = null;
             let currentUser = '';
             let currentRoom = '';
+            let currentUserId = '';
             let isTyping = false;
             let typingTimeout;
             let usersInRoom = [];
+            let pendingAttachment = null;
+            let messageReply = null;
+            let userColor = '';
 
-            // Generate random room ID
-            function generateRoomId() {
-                return Math.random().toString(36).substring(2, 8).toUpperCase();
+            // ============= Utility Functions =============
+            function generateUserId() {
+                return 'user_' + Math.random().toString(36).substr(2, 9);
             }
 
-            // Show toast notification
-            function showToast(message, type = 'info') {
-                const icon = type === 'success' ? 'fas fa-check-circle' : 
-                           type === 'error' ? 'fas fa-exclamation-circle' : 
-                           'fas fa-info-circle';
-                
-                toast.innerHTML = `<i class="${icon}"></i> ${message}`;
+            function generateRoomId() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let id = '';
+                for (let i = 0; i < 6; i++) {
+                    id += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return id;
+            }
+
+            function generateUserColor() {
+                const colors = [
+                    '#00bfff', '#667eea', '#764ba2', '#f093fb', '#f5576c',
+                    '#4facfe', '#00f2fe', '#43e97b', '#38f9d7', '#fa709a'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            function showToast(message, type = 'info', duration = 3000) {
+                toast.textContent = message;
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 
+                                      type === 'error' ? 'exclamation-circle' : 
+                                      type === 'warning' ? 'exclamation-triangle' : 
+                                      'info-circle'}"></i>
+                    ${message}
+                `;
                 toast.classList.add('show');
 
                 setTimeout(() => {
                     toast.classList.remove('show');
-                }, 3000);
+                }, duration);
             }
 
-            // Adjust textarea height
             function adjustTextareaHeight() {
                 messageInput.style.height = 'auto';
-                messageInput.style.height = (messageInput.scrollHeight) + 'px';
-                
-                if (messageInput.scrollHeight > 120) {
-                    messageInput.style.overflowY = 'auto';
+                messageInput.style.height = Math.min(messageInput.scrollHeight, 150) + 'px';
+                messageInput.style.overflowY = messageInput.scrollHeight > 150 ? 'auto' : 'hidden';
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+            }
+
+            function getFileIcon(filename) {
+                const ext = filename.split('.').pop().toLowerCase();
+                if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(ext)) {
+                    return 'fas fa-image';
+                } else if (['pdf'].includes(ext)) {
+                    return 'fas fa-file-pdf';
+                } else if (['doc', 'docx'].includes(ext)) {
+                    return 'fas fa-file-word';
+                } else if (['xls', 'xlsx'].includes(ext)) {
+                    return 'fas fa-file-excel';
+                } else if (['zip', 'rar', '7z'].includes(ext)) {
+                    return 'fas fa-file-archive';
+                } else if (['mp3', 'wav', 'ogg'].includes(ext)) {
+                    return 'fas fa-file-audio';
+                } else if (['mp4', 'avi', 'mov'].includes(ext)) {
+                    return 'fas fa-file-video';
                 } else {
-                    messageInput.style.overflowY = 'hidden';
+                    return 'fas fa-file';
                 }
             }
 
-            // Add message to chat
-            function addMessage(messageData, isOutgoing = false) {
+            function formatTime(date = new Date()) {
+                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+
+            // ============= Message Functions =============
+            function addSystemMessage(text, type = 'info') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'system-message';
+                messageDiv.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-${type === 'join' ? 'user-plus' : 
+                                         type === 'leave' ? 'user-minus' : 
+                                         type === 'info' ? 'info-circle' : 'bell'}"></i>
+                        <span>${text}</span>
+                    </div>
+                `;
+                chatBody.appendChild(messageDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            function addMessage(data, isOutgoing = false) {
                 const messageContainer = document.createElement('div');
                 messageContainer.className = `message-container ${isOutgoing ? 'outgoing' : 'incoming'}`;
-                
+                messageContainer.dataset.messageId = data.id;
+
                 const messageBubble = document.createElement('div');
                 messageBubble.className = 'message-bubble';
-                
-                // Add sender name for incoming messages
-                if (!isOutgoing) {
+
+                // Sender name
+                if (!isOutgoing && data.sender !== currentUser) {
                     const senderElement = document.createElement('div');
                     senderElement.className = 'message-sender';
-                    senderElement.textContent = messageData.sender;
+                    senderElement.innerHTML = `
+                        <span style="display: inline-block; width: 12px; height: 12px; 
+                             border-radius: 50%; background: ${data.color || userColor};"></span>
+                        ${data.sender}
+                    `;
                     messageBubble.appendChild(senderElement);
                 }
-                
-                // Add message text
-                const textElement = document.createElement('div');
-                textElement.className = 'message-text';
-                textElement.textContent = messageData.text;
-                messageBubble.appendChild(textElement);
-                
-                // Add timestamp
+
+                // Reply preview
+                if (data.replyTo) {
+                    const replyPreview = document.createElement('div');
+                    replyPreview.className = 'reply-preview';
+                    replyPreview.innerHTML = `
+                        <div class="reply-sender">${data.replyTo.sender}</div>
+                        <div class="reply-text">${data.replyTo.text || '[File]'}</div>
+                    `;
+                    messageBubble.appendChild(replyPreview);
+                }
+
+                // Message text
+                if (data.text) {
+                    const textElement = document.createElement('div');
+                    textElement.className = 'message-text';
+                    textElement.textContent = data.text;
+                    messageBubble.appendChild(textElement);
+                }
+
+                // File attachment
+                if (data.file) {
+                    const fileMessage = document.createElement('div');
+                    fileMessage.className = 'file-message';
+                    
+                    const fileIcon = getFileIcon(data.file.name);
+                    
+                    fileMessage.innerHTML = `
+                        <div class="file-preview" onclick="downloadFile('${data.file.name}', '${data.file.url || '#'}')">
+                            <div class="file-icon">
+                                <i class="${fileIcon}"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">
+                                    <span>${data.file.name}</span>
+                                    <i class="fas fa-download" style="font-size: 12px;"></i>
+                                </div>
+                                <div class="file-size">${formatFileSize(data.file.size)}</div>
+                            </div>
+                        </div>
+                    `;
+                    messageBubble.appendChild(fileMessage);
+                }
+
+                // Image attachment
+                if (data.image) {
+                    const imageMessage = document.createElement('div');
+                    imageMessage.className = 'image-message';
+                    imageMessage.innerHTML = `
+                        <img src="${data.image.url || '#'}" alt="${data.image.caption || 'Image'}" 
+                             class="image-preview" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"200\" viewBox=\"0 0 300 200\"><rect width=\"300\" height=\"200\" fill=\"%23f0f2f5\"/><text x=\"150\" y=\"100\" font-family=\"Arial\" font-size=\"14\" text-anchor=\"middle\" fill=\"%236c757d\">Image not available</text></svg>'">
+                        ${data.image.caption ? `<div class="image-caption">${data.image.caption}</div>` : ''}
+                    `;
+                    messageBubble.appendChild(imageMessage);
+                }
+
+                // Timestamp and status
                 const timeElement = document.createElement('div');
                 timeElement.className = 'message-time';
-                const now = new Date();
-                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 timeElement.innerHTML = `
-                    ${timeString}
-                    ${isOutgoing ? `<span class="message-status">
-                        <i class="fas fa-check"></i>
-                    </span>` : ''}
+                    ${data.timestamp || formatTime()}
+                    ${isOutgoing ? `
+                        <span class="message-status ${data.status || 'sent'}">
+                            <i class="fas fa-check${data.status === 'read' ? '-double' : ''}"></i>
+                        </span>
+                    ` : ''}
                 `;
                 messageBubble.appendChild(timeElement);
-                
+
+                // Reply functionality
+                messageBubble.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    if (!isOutgoing) {
+                        messageReply = {
+                            id: data.id,
+                            sender: data.sender,
+                            text: data.text || (data.file ? `[File: ${data.file.name}]` : '[Image]')
+                        };
+                        showToast(`Replying to ${data.sender}`, 'info');
+                        messageInput.focus();
+                        messageInput.placeholder = `Replying to ${data.sender}...`;
+                    }
+                });
+
                 messageContainer.appendChild(messageBubble);
                 chatBody.appendChild(messageContainer);
-                
-                // Scroll to bottom
                 chatBody.scrollTop = chatBody.scrollHeight;
             }
 
-            // Add system message
-            function addSystemMessage(text) {
-                const systemMsg = document.createElement('div');
-                systemMsg.className = 'system-message';
-                systemMsg.style.textAlign = 'center';
-                systemMsg.style.color = 'var(--text-muted)';
-                systemMsg.style.fontSize = '12px';
-                systemMsg.style.margin = '10px 0';
-                systemMsg.textContent = text;
-                chatBody.appendChild(systemMsg);
-                chatBody.scrollTop = chatBody.scrollHeight;
+            function updateMessageStatus(messageId, status) {
+                const message = document.querySelector(`[data-message-id="${messageId}"]`);
+                if (message && message.classList.contains('outgoing')) {
+                    const statusEl = message.querySelector('.message-status');
+                    if (statusEl) {
+                        statusEl.className = `message-status ${status}`;
+                        statusEl.innerHTML = `<i class="fas fa-check${status === 'read' ? '-double' : ''}"></i>`;
+                    }
+                }
             }
 
-            // Join chat room
-            function joinChatRoom(username, roomId) {
+            // ============= Room Functions =============
+            function joinRoom(username, roomId) {
                 currentUser = username;
                 currentRoom = roomId;
-                
+                currentUserId = generateUserId();
+                userColor = generateUserColor();
+
                 // Update UI
-                profileName.textContent = `${username} (${roomId})`;
-                currentRoomIdSpan.textContent = roomId;
-                roomInfoDisplay.style.display = 'block';
-                
+                profileName.textContent = username;
+                currentRoomName.textContent = roomId;
+                userAvatar.style.background = userColor;
+                userAvatar.innerHTML = `<span style="font-size: 18px; font-weight: 600;">${username.charAt(0).toUpperCase()}</span>`;
+
                 // Show chat container
                 entryContainer.style.display = 'none';
                 chatContainer.style.display = 'flex';
+
+                // Clear chat body and add welcome
+                chatBody.innerHTML = '';
                 
-                // Add welcome message
-                addSystemMessage(`Welcome to room ${roomId}! You've joined as ${username}.`);
-                addSystemMessage('Share the Room ID with friends to invite them.');
-                
-                // In a real implementation, you would connect to WebSocket here
-                showToast(`Joined room: ${roomId}`, 'success');
-                
+                const welcomeBanner = document.createElement('div');
+                welcomeBanner.className = 'welcome-banner';
+                welcomeBanner.innerHTML = `
+                    <h3>Welcome to Room: ${roomId}</h3>
+                    <p>Share this Room ID with others to invite them</p>
+                    <div class="room-id-display">${roomId}</div>
+                `;
+                chatBody.appendChild(welcomeBanner);
+
+                // Connect to WebSocket
+                connectToSocket();
+
                 // Focus on message input
-                setTimeout(() => {
-                    messageInput.focus();
-                }, 100);
+                setTimeout(() => messageInput.focus(), 100);
             }
 
-            // Leave chat room
-            function leaveChatRoom() {
+            function leaveRoom() {
                 if (socket) {
                     socket.disconnect();
                 }
-                
+
                 // Reset state
                 currentUser = '';
                 currentRoom = '';
-                
+                usersInRoom = [];
+                pendingAttachment = null;
+                messageReply = null;
+
                 // Show entry container
                 chatContainer.style.display = 'none';
                 entryContainer.style.display = 'block';
-                
-                // Clear chat
-                chatBody.innerHTML = '';
-                
-                // Reset inputs
-                usernameInput.value = '';
-                roomIdInput.value = '';
-                
+
+                // Clear inputs
+                messageInput.value = '';
+                messageInput.style.height = '56px';
+                messageInput.placeholder = 'Type your message here...';
+
+                // Hide attachment preview
+                attachmentPreview.style.display = 'none';
+
                 showToast('Left the chat room', 'info');
             }
 
-            // Event Listeners
-            joinButton.addEventListener('click', function() {
+            // ============= Socket Functions =============
+            function connectToSocket() {
+                socket = io();
+
+                socket.on('connect', () => {
+                    statusText.textContent = 'Online';
+                    showToast('Connected to chat server', 'success');
+                    
+                    // Join room
+                    socket.emit('joinRoom', {
+                        userId: currentUserId,
+                        username: currentUser,
+                        room: currentRoom,
+                        color: userColor
+                    });
+                });
+
+                socket.on('connect_error', () => {
+                    statusText.textContent = 'Disconnected';
+                    showToast('Connection error. Reconnecting...', 'error');
+                });
+
+                socket.on('userJoined', (data) => {
+                    usersInRoom = data.users;
+                    updateUserCount();
+                    if (data.username !== currentUser) {
+                        addSystemMessage(`${data.username} joined the room`, 'join');
+                        showToast(`${data.username} joined the room`, 'info', 2000);
+                    }
+                });
+
+                socket.on('userLeft', (data) => {
+                    usersInRoom = data.users;
+                    updateUserCount();
+                    if (data.username !== currentUser) {
+                        addSystemMessage(`${data.username} left the room`, 'leave');
+                        showToast(`${data.username} left the room`, 'warning', 2000);
+                    }
+                });
+
+                socket.on('chatMessage', (data) => {
+                    if (data.sender !== currentUser) {
+                        addMessage(data, false);
+                        
+                        // Mark as read
+                        socket.emit('messageRead', {
+                            messageId: data.id,
+                            room: currentRoom
+                        });
+                    }
+                });
+
+                socket.on('typing', (username) => {
+                    if (username !== currentUser) {
+                        statusText.style.display = 'none';
+                        typingText.style.display = 'inline';
+                        typingText.textContent = `${username} is typing...`;
+
+                        clearTimeout(typingTimeout);
+                        typingTimeout = setTimeout(() => {
+                            statusText.style.display = 'inline';
+                            typingText.style.display = 'none';
+                        }, 2000);
+                    }
+                });
+
+                socket.on('messageStatus', (data) => {
+                    updateMessageStatus(data.messageId, data.status);
+                });
+
+                socket.on('fileUploaded', (data) => {
+                    const fileData = {
+                        id: Date.now().toString(),
+                        sender: data.sender,
+                        file: {
+                            name: data.name,
+                            size: data.size,
+                            url: data.url
+                        },
+                        timestamp: data.timestamp
+                    };
+                    addMessage(fileData, data.sender === currentUser);
+                });
+
+                socket.on('error', (error) => {
+                    showToast(`Error: ${error.message}`, 'error');
+                });
+
+                socket.on('roomInfo', (data) => {
+                    usersInRoom = data.users;
+                    updateUserCount();
+                    addSystemMessage(`Room created. Currently ${data.users.length} user(s) online.`, 'info');
+                });
+            }
+
+            function sendMessage() {
+                const text = messageInput.value.trim();
+                
+                if (!text && !pendingAttachment) return;
+
+                const messageId = Date.now().toString();
+                const messageData = {
+                    id: messageId,
+                    text: text,
+                    sender: currentUser,
+                    room: currentRoom,
+                    userId: currentUserId,
+                    color: userColor,
+                    timestamp: formatTime(),
+                    status: 'sent',
+                    replyTo: messageReply
+                };
+
+                // Add file/image attachment if exists
+                if (pendingAttachment) {
+                    if (pendingAttachment.type.startsWith('image/')) {
+                        messageData.image = {
+                            name: pendingAttachment.name,
+                            size: pendingAttachment.size,
+                            caption: text || 'Image',
+                            url: URL.createObjectURL(pendingAttachment)
+                        };
+                    } else {
+                        messageData.file = {
+                            name: pendingAttachment.name,
+                            size: pendingAttachment.size,
+                            type: pendingAttachment.type
+                        };
+                    }
+                    
+                    // For demo, we'll just log the file
+                    console.log('File selected for upload:', pendingAttachment.name, pendingAttachment.size);
+                    
+                    // In real implementation, you would upload here
+                    // socket.emit('fileUpload', { file: pendingAttachment, room: currentRoom });
+                    
+                    // Clear attachment preview
+                    attachmentPreview.style.display = 'none';
+                    pendingAttachment = null;
+                }
+
+                // Add to UI immediately
+                addMessage(messageData, true);
+
+                // Send via socket
+                socket.emit('chatMessage', messageData);
+
+                // Clear input
+                messageInput.value = '';
+                messageInput.style.height = '56px';
+                messageInput.placeholder = 'Type your message here...';
+                messageReply = null;
+
+                // Update status to delivered
+                setTimeout(() => {
+                    socket.emit('messageStatus', {
+                        messageId: messageId,
+                        status: 'delivered',
+                        room: currentRoom
+                    });
+                }, 500);
+            }
+
+            // ============= UI Update Functions =============
+            function updateUserCount() {
+                userCount.textContent = usersInRoom.length;
+            }
+
+            function showUsersModal() {
+                usersList.innerHTML = '';
+                
+                usersInRoom.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <div class="user-avatar" style="background: ${user.color || userColor}">
+                            ${user.username.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">${user.username}</div>
+                            <div class="user-status">
+                                <span class="online-dot"></span>
+                                <span>Online</span>
+                            </div>
+                        </div>
+                    `;
+                    usersList.appendChild(userItem);
+                });
+
+                usersModal.classList.add('show');
+            }
+
+            // ============= Event Listeners =============
+            // Room mode toggle
+            joinRoomBtn.addEventListener('click', () => {
+                joinRoomBtn.classList.add('active');
+                createRoomBtn.classList.remove('active');
+                roomIdInput.placeholder = 'Enter room ID to join';
+            });
+
+            createRoomBtn.addEventListener('click', () => {
+                createRoomBtn.classList.add('active');
+                joinRoomBtn.classList.remove('active');
+                const newRoomId = generateRoomId();
+                roomIdInput.value = newRoomId;
+                roomIdInput.placeholder = 'New room ID generated';
+            });
+
+            // Quick room buttons
+            quickRoomButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const room = btn.dataset.room;
+                    roomIdInput.value = room;
+                    joinRoomBtn.click();
+                });
+            });
+
+            // Start chat button
+            startChatBtn.addEventListener('click', () => {
                 const username = usernameInput.value.trim();
                 let roomId = roomIdInput.value.trim();
-                
+
                 if (!username) {
                     showToast('Please enter your name', 'error');
+                    usernameInput.focus();
                     return;
                 }
-                
+
                 if (!roomId) {
-                    roomId = generateRoomId();
-                    roomIdInput.value = roomId;
+                    if (createRoomBtn.classList.contains('active')) {
+                        roomId = generateRoomId();
+                        roomIdInput.value = roomId;
+                    } else {
+                        showToast('Please enter a room ID', 'error');
+                        roomIdInput.focus();
+                        return;
+                    }
                 }
-                
-                joinChatRoom(username, roomId);
+
+                joinRoom(username, roomId);
             });
 
-            createButton.addEventListener('click', function() {
-                const username = usernameInput.value.trim();
-                
-                if (!username) {
-                    showToast('Please enter your name', 'error');
-                    return;
-                }
-                
-                const roomId = generateRoomId();
-                roomIdInput.value = roomId;
-                joinChatRoom(username, roomId);
+            // Enter key in inputs
+            usernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') roomIdInput.focus();
             });
 
-            // Message input events
-            messageInput.addEventListener('input', adjustTextareaHeight);
-            
-            messageInput.addEventListener('keydown', function(e) {
+            roomIdInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') startChatBtn.click();
+            });
+
+            // Message input
+            messageInput.addEventListener('input', () => {
+                adjustTextareaHeight();
+                
+                if (messageInput.value.trim() && !isTyping) {
+                    isTyping = true;
+                    socket.emit('typing', {
+                        username: currentUser,
+                        room: currentRoom
+                    });
+                    
+                    setTimeout(() => {
+                        isTyping = false;
+                    }, 2000);
+                }
+            });
+
+            messageInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     sendMessage();
@@ -815,88 +1932,98 @@
 
             // Send button
             sendButton.addEventListener('click', sendMessage);
-            
-            function sendMessage() {
-                const messageText = messageInput.value.trim();
-                
-                if (!messageText) return;
-                
-                // Add message locally
-                const messageData = {
-                    text: messageText,
-                    sender: currentUser,
-                    room: currentRoom,
-                    timestamp: new Date().toISOString()
-                };
-                
-                addMessage(messageData, true);
-                
-                // In a real implementation, send via WebSocket
-                // socket.emit('chat-message', messageData);
-                
-                // Clear input
-                messageInput.value = '';
-                messageInput.style.height = '50px';
-                
-                // Simulate response
-                setTimeout(() => {
-                    const responses = [
-                        "Hello! How are you?",
-                        "That's interesting!",
-                        "Thanks for sharing!",
-                        "I agree with you.",
-                        "Can you tell me more?"
-                    ];
-                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                    
-                    const botMessage = {
-                        text: randomResponse,
-                        sender: 'Chat Bot',
-                        room: currentRoom,
-                        timestamp: new Date().toISOString()
-                    };
-                    
-                    addMessage(botMessage, false);
-                }, 1000);
-            }
 
-            // File attachment
-            attachButton.addEventListener('click', function() {
-                fileInput.click();
-            });
-            
-            fileInput.addEventListener('change', function(e) {
+            // File/image buttons
+            fileBtn.addEventListener('click', () => fileInput.click());
+            imageBtn.addEventListener('click', () => imageInput.click());
+
+            fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
                     const file = e.target.files[0];
+                    pendingAttachment = file;
+                    
+                    // Show preview
+                    attachmentName.textContent = file.name;
+                    attachmentSize.textContent = formatFileSize(file.size);
+                    attachmentIcon.innerHTML = `<i class="${getFileIcon(file.name)}"></i>`;
+                    attachmentPreview.style.display = 'block';
+                    
                     showToast(`File selected: ${file.name}`, 'info');
-                    // Here you would upload the file and send the link
                 }
             });
 
-            // Room info button
-            roomInfoBtn.addEventListener('click', function() {
-                const roomInfo = `Room ID: ${currentRoom}\nUsers online: ${usersInRoom.length + 1}`;
-                alert(roomInfo);
+            imageInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    pendingAttachment = file;
+                    
+                    // Show preview
+                    attachmentName.textContent = file.name;
+                    attachmentSize.textContent = formatFileSize(file.size);
+                    attachmentIcon.innerHTML = '<i class="fas fa-image"></i>';
+                    attachmentPreview.style.display = 'block';
+                    
+                    showToast(`Image selected: ${file.name}`, 'info');
+                }
             });
 
-            // Leave room button
-            leaveRoomBtn.addEventListener('click', leaveChatRoom);
+            // Remove attachment
+            removeAttachmentBtn.addEventListener('click', () => {
+                pendingAttachment = null;
+                attachmentPreview.style.display = 'none';
+                fileInput.value = '';
+                imageInput.value = '';
+            });
+
+            // Header buttons
+            usersBtn.addEventListener('click', showUsersModal);
+            
+            roomInfoBtn.addEventListener('click', () => {
+                const info = `Room: ${currentRoom}\nUsers online: ${usersInRoom.length}\n\nShare this ID to invite others: ${currentRoom}`;
+                alert(info);
+            });
+
+            leaveBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to leave this chat room?')) {
+                    leaveRoom();
+                }
+            });
+
+            // Modal close
+            closeUsersModal.addEventListener('click', () => {
+                usersModal.classList.remove('show');
+            });
+
+            usersModal.addEventListener('click', (e) => {
+                if (e.target === usersModal) {
+                    usersModal.classList.remove('show');
+                }
+            });
 
             // Emoji button (placeholder)
-            emojiButton.addEventListener('click', function() {
-                showToast('Emoji picker would open here', 'info');
+            emojiBtn.addEventListener('click', () => {
+                showToast('Emoji picker coming soon!', 'info');
             });
 
-            // Typing indicator
-            messageInput.addEventListener('input', function() {
-                if (messageInput.value.trim() && !isTyping) {
-                    isTyping = true;
-                    // In real app: socket.emit('typing', { room: currentRoom, user: currentUser });
+            // Global function for file download
+            window.downloadFile = function(filename, url) {
+                if (url === '#') {
+                    showToast('File download not available in demo', 'warning');
+                    return;
                 }
-            });
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            };
 
             // Focus on username input on load
             usernameInput.focus();
+
+            // Auto-adjust textarea height on load
+            setTimeout(adjustTextareaHeight, 100);
         });
     </script>
 </body>
