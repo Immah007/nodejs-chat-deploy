@@ -1,100 +1,52 @@
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Chat App</title>
-    <title>Elegant Chat</title>
+    <title>Elegant Chat App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS will be placed here for the sake of this example */
-        /* In production, you should keep it in a separate file */
         :root {
-            --main-color: #00bfff;
-            --secondary-color: #28282B;
-            --background-color: #dbe9f4;
-            --message-in: #ffffff;
-            --message-out: #28282B;
-            --text-dark: #333;
-            --text-light: #fff;
-            --text-muted: #777;
-            --online-indicator: #4CAF50;
-            --typing-indicator: #00bfff;
-            --message-status-read: #53bdeb;
-            --message-status-delivered: #aaa;
-            --message-status-sent: #ddd;
-            --input-bg: #fff;
-            --input-radius: 24px;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
             --primary: #00bfff;
+            --primary-dark: #0099cc;
             --matte-black: #28282B;
             --light-gray: #f8f9fa;
             --dark-gray: #343a40;
             --white: #ffffff;
             --text-dark: #212529;
             --text-light: #f8f9fa;
+            --text-muted: #6c757d;
             --border-radius: 12px;
             --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --message-in: #ffffff;
+            --message-out: #00bfff;
+            --online-indicator: #4CAF50;
+            --typing-indicator: #00bfff;
+            --message-status-read: #53bdeb;
+            --message-status-delivered: #aaa;
+            --message-status-sent: #ddd;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color);
             background-color: var(--light-gray);
             color: var(--text-dark);
             height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
         }
 
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-container {
-            background-color: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            animation: fadeInUp 0.4s;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-        /* Entry Form Container */
+        /* Entry Container (Modal-like) */
         .entry-container {
             width: 100%;
             max-width: 420px;
@@ -103,95 +55,158 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             text-align: center;
-            margin-bottom: 20px;
             animation: fadeInUp 0.6s;
+            z-index: 100;
         }
 
-        .modal-header h2 {
-            color: var(--main-color);
-            margin-bottom: 10px;
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .modal-header p {
-            color: var(--text-muted);
-            font-size: 14px;
+        .entry-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), #0062ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            font-size: 32px;
+        }
+
         .entry-header {
             margin-bottom: 32px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
         .entry-header h1 {
             font-size: 28px;
             font-weight: 600;
             color: var(--matte-black);
             margin-bottom: 8px;
+        }
+
+        .entry-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 500;
-            color: var(--text-dark);
+            color: var(--matte-black);
+            font-size: 14px;
         }
 
-        .form-control {
+        .form-input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 15px;
             transition: var(--transition);
+            background-color: var(--light-gray);
         }
 
-        .form-control:focus {
+        .form-input:focus {
             outline: none;
-            border-color: var(--main-color);
-            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+            background-color: var(--white);
+        }
+
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 28px;
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px 20px;
-            background-color: var(--main-color);
-            color: white;
+            padding: 14px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: var(--border-radius);
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .btn:hover {
-            background-color: #0099cc;
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background-color: #f0f0f0;
-            color: var(--text-dark);
-            margin-top: 10px;
+            background-color: var(--light-gray);
+            color: var(--matte-black);
+            border: 1px solid #e0e0e0;
         }
 
         .btn-secondary:hover {
-            background-color: #e0e0e0;
+            background-color: #e9ecef;
+            transform: translateY(-2px);
         }
 
-        /* Header Styles */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 16px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .divider::before {
+            margin-right: 16px;
+        }
+
+        .divider::after {
+            margin-left: 16px;
+        }
+
+        /* Chat Container - Initially Hidden */
+        #chat-container {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            background-color: var(--white);
+        }
+
+        /* Header */
         #header {
             height: 70px;
-            background-color: var(--secondary-color);
+            background-color: var(--matte-black);
             color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
-            box-shadow: var(--shadow);
-            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             flex-shrink: 0;
         }
 
@@ -205,17 +220,11 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #555;
+            background: linear-gradient(135deg, var(--primary), #0062ff);
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            color: white;
         }
 
         .profile-info h3 {
@@ -230,9 +239,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-        .entry-header p {
-            color: #6c757d;
-            font-size: 15px;
         }
 
         .online-dot {
@@ -240,10 +246,6 @@
             width: 8px;
             height: 8px;
             background-color: var(--online-indicator);
-        .entry-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), #0062ff);
             border-radius: 50%;
         }
 
@@ -259,21 +261,22 @@
         }
 
         .header-icon {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             border-radius: 50%;
             transition: var(--transition);
+            color: white;
         }
 
         .header-icon:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Chat Body Styles */
+        /* Chat Body */
         #chat-body {
             flex: 1;
             overflow-y: auto;
@@ -281,7 +284,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            background-color: var(--background-color);
+            background-color: #f5f7fb;
         }
 
         .message-container {
@@ -301,7 +304,7 @@
             position: relative;
             word-break: break-word;
             animation: fadeIn 0.3s;
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             max-width: 100%;
         }
 
@@ -318,7 +321,7 @@
 
         .outgoing .message-bubble {
             background-color: var(--message-out);
-            color: var(--text-light);
+            color: white;
             border-bottom-right-radius: 4px;
         }
 
@@ -331,7 +334,6 @@
 
         .message-time {
             font-size: 11px;
-            color: var(--text-muted);
             margin-top: 5px;
             display: flex;
             align-items: center;
@@ -339,83 +341,21 @@
             gap: 3px;
         }
 
+        .incoming .message-time {
+            color: var(--text-muted);
+        }
+
         .outgoing .message-time {
             color: rgba(255, 255, 255, 0.7);
         }
 
         .message-status {
-            font-size: 12px;
+            font-size: 10px;
         }
 
-        .message-status.sent {
-            color: var(--message-status-sent);
-        }
-
-        .message-status.delivered {
-            color: var(--message-status-delivered);
-        }
-
-        .message-status.read {
-            color: var(--message-status-read);
-            margin: 0 auto 24px;
-            color: white;
-            font-size: 32px;
-        }
-
-        /* File attachment styles */
-        .message-attachment {
-            margin-top: 10px;
-            border-radius: 12px;
-            overflow: hidden;
-            max-width: 250px;
-            position: relative;
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .attachment-image {
-            width: 100%;
-            height: auto;
-        .form-label {
-            display: block;
-        }
-
-        .attachment-file {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .file-icon {
-            font-size: 24px;
-        }
-
-        .file-info {
-            flex: 1;
-        }
-
-        .file-name {
-            font-size: 14px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .file-size {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Footer Styles */
+        /* Footer */
         #chat-footer {
-            padding: 15px;
+            padding: 15px 20px;
             background-color: white;
             display: flex;
             align-items: center;
@@ -424,111 +364,61 @@
             flex-shrink: 0;
         }
 
-        .attachment-preview {
-            position: relative;
-            margin-bottom: 10px;
-            max-width: 200px;
-        }
-
-        .attachment-preview img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-
-        .remove-attachment {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
         .input-container {
             flex: 1;
             position: relative;
             display: flex;
             align-items: center;
-            color: var(--matte-black);
-            font-size: 14px;
         }
 
         #message-input {
-        .form-input {
             width: 100%;
             padding: 12px 50px 12px 15px;
             border: 1px solid #ddd;
-            border-radius: var(--input-radius);
+            border-radius: 24px;
             font-size: 16px;
             resize: none;
             max-height: 120px;
             min-height: 50px;
-            padding: 14px 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: var(--border-radius);
-            font-size: 15px;
+            font-family: inherit;
             transition: var(--transition);
-            background-color: var(--light-gray);
         }
 
         #message-input:focus {
-        .form-input:focus {
             outline: none;
-            border-color: var(--main-color);
-            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
-            background-color: var(--white);
+            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
         }
 
         .input-actions {
             position: absolute;
             right: 10px;
-        .form-actions {
             display: flex;
             align-items: center;
             gap: 5px;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 28px;
         }
 
         .input-action {
             background: none;
-        .btn {
-            padding: 14px;
             border: none;
             color: var(--text-muted);
-            font-size: 20px;
-            border-radius: var(--border-radius);
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
+            font-size: 18px;
             width: 36px;
             height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
         .input-action:hover {
             background-color: rgba(0, 0, 0, 0.05);
-            color: var(--main-color);
-            gap: 8px;
+            color: var(--primary);
         }
 
         #send-button {
-            background-color: var(--main-color);
-        .btn-primary {
             background-color: var(--primary);
             color: white;
             border: none;
@@ -540,186 +430,88 @@
             justify-content: center;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         #send-button:hover {
-        .btn-primary:hover {
-            background-color: #0099cc;
+            background-color: var(--primary-dark);
             transform: scale(1.05);
         }
 
         #send-button i {
-            font-size: 20px;
-            transform: translateY(-2px);
+            font-size: 18px;
         }
 
         #file-input {
             display: none;
-        .btn-secondary {
-            background-color: var(--light-gray);
-            color: var(--matte-black);
         }
 
-        /* Reply message styles */
-        .reply-message {
-            border-left: 3px solid var(--main-color);
-            padding-left: 10px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            background-color: rgba(0, 0, 0, 0.05);
-            padding: 8px;
-            border-radius: 4px;
-        .btn-secondary:hover {
-            background-color: #e9ecef;
-            transform: translateY(-2px);
-        }
-
-        .reply-sender {
-            font-weight: 500;
-            color: var(--main-color);
-            margin-bottom: 3px;
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 24px 0;
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .reply-text {
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        .divider::before, .divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        /* Toast notification */
+        /* Toast Notification */
         .toast {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
+            background-color: var(--matte-black);
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 24px;
+            border-radius: 24px;
             font-size: 14px;
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s;
-            box-shadow: var(--shadow);
-        .divider::before {
-            margin-right: 16px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .toast.show {
             opacity: 1;
-        .divider::after {
-            margin-left: 16px;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .modal-container {
-                width: 95%;
-                padding: 20px;
-        /* Responsive Adjustments */
+        /* Room Info */
+        .room-info {
+            background-color: #e9f7fe;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #b3e5fc;
+        }
+
+        .room-id {
+            font-family: monospace;
+            background-color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+        }
+
+        /* Responsive */
         @media (max-width: 480px) {
             .entry-container {
                 padding: 30px 24px;
                 margin: 0 16px;
             }
 
-            .message-container {
-                max-width: 90%;
             .entry-header h1 {
                 font-size: 24px;
+            }
+
+            .message-container {
+                max-width: 90%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Name/Chat ID Entry Modal -->
-    <div id="entry-modal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2>Welcome to Modern Chat</h2>
-                <p>Enter your details to start chatting</p>
-            </div>
-            <form id="user-form">
-                <div class="form-group">
-                    <label for="username">Your Name</label>
-                    <input type="text" id="username" class="form-control" placeholder="Enter your name" required>
-                </div>
-                <div class="form-group">
-                    <label for="chat-id">Chat ID</label>
-                    <input type="text" id="chat-id" class="form-control" placeholder="Enter or create a chat ID">
-                    <p style="font-size: 12px; color: #777; margin-top: 5px;">Share this ID with friends to chat with them</p>
-                </div>
-                <button type="submit" class="btn">Start Chatting</button>
-                <button type="button" id="random-id" class="btn btn-secondary">Generate Random ID</button>
-            </form>
-    <!-- Entry Form -->
-    <div class="entry-container">
+    <!-- Entry Form (Initially Visible) -->
+    <div id="entry-container" class="entry-container">
         <div class="entry-logo">
             <i class="fas fa-comments"></i>
         </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
-
-    <!-- Chat Container -->
-    <div id="chat-container" style="display: none;">
-        <!-- Header -->
-        <header id="header">
-            <div class="header-left">
-                <div class="profile-pic">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="profile-info">
-                    <h3 id="profile-name">Chat</h3>
-                    <p id="status-indicator">
-                        <span class="online-dot"></span>
-                        <span id="status-text">Online</span>
-                        <span id="typing-text" class="typing-text" style="display: none;">typing...</span>
-                    </p>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="header-icon" title="Search">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="header-icon" title="Menu">
-                    <i class="fas fa-ellipsis-v"></i>
-                </div>
-            </div>
-        </header>
-
-        <!-- Chat Body -->
-        <main id="chat-body"></main>
-
-        <!-- Footer with Input -->
-        <footer id="chat-footer">
-            <div class="input-container">
-                <div class="input-actions">
-                    <button class="input-action" id="emoji-button" title="Emoji">
-                        <i class="far fa-smile"></i>
-                    </button>
-                    <button class="input-action" id="attach-button" title="Attach file">
-                        <i class="fas fa-paperclip"></i>
-                    </button>
-                </div>
-                <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
-                <input type="file" id="file-input" accept="image/*, .pdf, .doc, .docx, .txt">
-            </div>
-            <button id="send-button">
-                <i class="fas fa-paper-plane"></i>
         
         <div class="entry-header">
             <h1>Welcome to Elegant Chat</h1>
@@ -734,6 +526,7 @@
         <div class="form-group">
             <label for="room-id" class="form-label">Room ID</label>
             <input type="text" id="room-id" class="form-input" placeholder="Enter room ID to join">
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">Leave empty to create a new room</p>
         </div>
         
         <div class="form-actions">
@@ -746,20 +539,79 @@
             <button id="create-button" class="btn btn-secondary">
                 <i class="fas fa-plus-circle"></i> Create New Room
             </button>
-        </footer>
         </div>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- Chat Container (Initially Hidden) -->
+    <div id="chat-container">
+        <!-- Header -->
+        <header id="header">
+            <div class="header-left">
+                <div class="profile-pic">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h3 id="profile-name">Chat Room</h3>
+                    <p id="status-indicator">
+                        <span class="online-dot"></span>
+                        <span id="status-text">Online</span>
+                        <span id="typing-text" class="typing-text" style="display: none;">typing...</span>
+                    </p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-icon" title="Room Info" id="room-info-btn">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="header-icon" title="Leave Room" id="leave-room-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat Body -->
+        <main id="chat-body">
+            <!-- Room info will be displayed here on join -->
+            <div id="room-info-display" class="room-info" style="display: none;">
+                <i class="fas fa-door-open"></i>
+                <span>Room ID: <span id="current-room-id" class="room-id"></span></span>
+                <span style="margin-left: 10px;">Share this ID with friends</span>
+            </div>
+        </main>
+
+        <!-- Footer with Input -->
+        <footer id="chat-footer">
+            <div class="input-container">
+                <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+                <div class="input-actions">
+                    <button class="input-action" id="emoji-button" title="Emoji">
+                        <i class="far fa-smile"></i>
+                    </button>
+                    <button class="input-action" id="attach-button" title="Attach file">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                </div>
+                <input type="file" id="file-input" accept="image/*, .pdf, .doc, .docx, .txt">
+            </div>
+            <button id="send-button">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // DOM Elements
-            const entryModal = document.getElementById('entry-modal');
+            const entryContainer = document.getElementById('entry-container');
             const chatContainer = document.getElementById('chat-container');
-            const userForm = document.getElementById('user-form');
             const usernameInput = document.getElementById('username');
-            const chatIdInput = document.getElementById('chat-id');
-            const randomIdBtn = document.getElementById('random-id');
+            const roomIdInput = document.getElementById('room-id');
+            const joinButton = document.getElementById('join-button');
+            const createButton = document.getElementById('create-button');
             const profileName = document.getElementById('profile-name');
             const statusText = document.getElementById('status-text');
             const typingText = document.getElementById('typing-text');
@@ -770,204 +622,52 @@
             const attachButton = document.getElementById('attach-button');
             const emojiButton = document.getElementById('emoji-button');
             const toast = document.getElementById('toast');
-            const roomIdInput = document.getElementById('room-id');
-            const joinButton = document.getElementById('join-button');
-            const createButton = document.getElementById('create-button');
+            const roomInfoBtn = document.getElementById('room-info-btn');
+            const leaveRoomBtn = document.getElementById('leave-room-btn');
+            const roomInfoDisplay = document.getElementById('room-info-display');
+            const currentRoomIdSpan = document.getElementById('current-room-id');
 
-            // Socket.io connection
-            let socket;
-            let currentUser = {};
+            // App State
+            let socket = null;
+            let currentUser = '';
             let currentRoom = '';
             let isTyping = false;
             let typingTimeout;
-            let fileToSend = null;
-            let replyToMessage = null;
+            let usersInRoom = [];
 
-            // Generate random ID
-            randomIdBtn.addEventListener('click', function() {
-                const randomId = Math.random().toString(36).substring(2, 8);
-                chatIdInput.value = randomId;
-                showToast('Random ID generated!');
-            });
-
-            // Form submission
-            userForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-            // Generate a random room ID
+            // Generate random room ID
             function generateRoomId() {
-                return Math.random().toString(36).substring(2, 8);
+                return Math.random().toString(36).substring(2, 8).toUpperCase();
             }
-            
-            // Join existing room
-            joinButton.addEventListener('click', function() {
-                const username = usernameInput.value.trim();
-                let chatId = chatIdInput.value.trim();
-                const roomId = roomIdInput.value.trim() || 'default';
 
-                if (!username) {
-                    showToast('Please enter your name');
-                    alert('Please enter your name');
-                    return;
-                }
+            // Show toast notification
+            function showToast(message, type = 'info') {
+                const icon = type === 'success' ? 'fas fa-check-circle' : 
+                           type === 'error' ? 'fas fa-exclamation-circle' : 
+                           'fas fa-info-circle';
+                
+                toast.innerHTML = `<i class="${icon}"></i> ${message}`;
+                toast.classList.add('show');
 
-                if (!chatId) {
-                    chatId = 'default';
-                }
-                
-                currentUser = { username, chatId };
-                currentRoom = chatId;
-                profileName.textContent = username;
-                
-                // Initialize socket connection
-                socket = io();
-                
-                // Join the room
-                socket.emit('joinRoom', { 
-                    username, 
-                    room: chatId 
-                });
-                
-                // Hide modal and show chat
-                entryModal.style.display = 'none';
-                chatContainer.style.display = 'flex';
-                document.body.style.flexDirection = 'column';
-                
-                // Focus on input
                 setTimeout(() => {
-                    messageInput.focus();
-                }, 100);
-                
-                showToast(`Joined chat: ${chatId}`);
-            });
-
-            // Socket event listeners
-            if (socket) {
-                socket.on('chat message', function(data) {
-                    addMessage(data, false);
-                    // Mark as read
-                    if (data.sender !== currentUser.username) {
-                        socket.emit('messageRead', { 
-                            messageId: data.id,
-                            room: currentRoom 
-                        });
-                    }
-                });
-                
-                socket.on('userJoined', function(username) {
-                    showToast(`${username} joined the chat`);
-                });
-                
-                socket.on('userLeft', function(username) {
-                    showToast(`${username} left the chat`);
-                });
-                
-                socket.on('typing', function(username) {
-                    if (username !== currentUser.username) {
-                        statusText.style.display = 'none';
-                        typingText.style.display = 'inline';
-                        
-                        clearTimeout(typingTimeout);
-                        typingTimeout = setTimeout(() => {
-                            statusText.style.display = 'inline';
-                            typingText.style.display = 'none';
-                        }, 2000);
-                    }
-                });
-                
-                socket.on('messageStatus', function(data) {
-                    updateMessageStatus(data.messageId, data.status);
-                });
+                    toast.classList.remove('show');
+                }, 3000);
             }
 
-            // Message input events
-            messageInput.addEventListener('input', function() {
-                adjustTextareaHeight();
+            // Adjust textarea height
+            function adjustTextareaHeight() {
+                messageInput.style.height = 'auto';
+                messageInput.style.height = (messageInput.scrollHeight) + 'px';
                 
-                if (messageInput.value.trim() && !isTyping) {
-                    isTyping = true;
-                    socket.emit('typing', { 
-                        username: currentUser.username,
-                        room: currentRoom 
-                    });
-                } else if (!messageInput.value.trim() && isTyping) {
-                    isTyping = false;
+                if (messageInput.scrollHeight > 120) {
+                    messageInput.style.overflowY = 'auto';
+                } else {
+                    messageInput.style.overflowY = 'hidden';
                 }
-                // In a real app, you would connect to the chat here
-                alert(`Welcome ${username}! Joining room: ${roomId}`);
-                // window.location.href = `chat.html?username=${encodeURIComponent(username)}&room=${encodeURIComponent(roomId)}`;
-            });
-
-            messageInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-
-            // Send button click
-            sendButton.addEventListener('click', sendMessage);
-
-            // File attachment
-            attachButton.addEventListener('click', function() {
-                fileInput.click();
-            });
-            
-            fileInput.addEventListener('change', function(e) {
-                if (e.target.files.length > 0) {
-                    fileToSend = e.target.files[0];
-                    showToast(`File selected: ${fileToSend.name}`);
-                }
-            });
-
-            // Functions
-            function sendMessage() {
-                const messageText = messageInput.value.trim();
-                
-                if (!messageText && !fileToSend) return;
-                
-                const messageId = Date.now().toString();
-                const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                const messageData = {
-                    id: messageId,
-                    text: messageText,
-                    sender: currentUser.username,
-                    timestamp,
-                    room: currentRoom,
-                    status: 'sent',
-                    replyTo: replyToMessage,
-                    file: fileToSend ? {
-                        name: fileToSend.name,
-                        type: fileToSend.type,
-                        size: fileToSend.size
-                    } : null
-                };
-                
-                // Add message to UI immediately
-                addMessage(messageData, true);
-                
-                // Emit to server
-                socket.emit('chat message', messageData);
-                
-                // Reset input
-                messageInput.value = '';
-                messageInput.style.height = '50px';
-                fileToSend = null;
-                replyToMessage = null;
-                
-                // Update status to delivered when server confirms
-                setTimeout(() => {
-                    updateMessageStatus(messageId, 'delivered');
-                    socket.emit('messageStatus', {
-                        messageId,
-                        status: 'delivered',
-                        room: currentRoom
-                    });
-                }, 1000);
             }
-            
-            function addMessage(data, isOutgoing) {
+
+            // Add message to chat
+            function addMessage(messageData, isOutgoing = false) {
                 const messageContainer = document.createElement('div');
                 messageContainer.className = `message-container ${isOutgoing ? 'outgoing' : 'incoming'}`;
                 
@@ -978,159 +678,226 @@
                 if (!isOutgoing) {
                     const senderElement = document.createElement('div');
                     senderElement.className = 'message-sender';
-                    senderElement.textContent = data.sender;
+                    senderElement.textContent = messageData.sender;
                     messageBubble.appendChild(senderElement);
                 }
                 
-                // Add reply preview if exists
-                if (data.replyTo) {
-                    const replyElement = document.createElement('div');
-                    replyElement.className = 'reply-message';
-                    
-                    const replySender = document.createElement('div');
-                    replySender.className = 'reply-sender';
-                    replySender.textContent = data.replyTo.sender;
-                    
-                    const replyText = document.createElement('div');
-                    replyText.className = 'reply-text';
-                    replyText.textContent = data.replyTo.text || 'File attachment';
-                    
-                    replyElement.appendChild(replySender);
-                    replyElement.appendChild(replyText);
-                    messageBubble.appendChild(replyElement);
-                }
+                // Add message text
+                const textElement = document.createElement('div');
+                textElement.className = 'message-text';
+                textElement.textContent = messageData.text;
+                messageBubble.appendChild(textElement);
                 
-                // Add message text if exists
-                if (data.text) {
-                    const textElement = document.createElement('div');
-                    textElement.className = 'message-text';
-                    textElement.textContent = data.text;
-                    messageBubble.appendChild(textElement);
-                }
-                
-                // Add file attachment if exists
-                if (data.file) {
-                    const attachmentElement = document.createElement('div');
-                    attachmentElement.className = 'message-attachment';
-                    
-                    if (data.file.type.startsWith('image/')) {
-                        // For images, we'd display a thumbnail (in real app, you'd upload to server)
-                        attachmentElement.innerHTML = `
-                            <div class="attachment-file">
-                                <i class="fas fa-image file-icon"></i>
-                                <div class="file-info">
-                                    <div class="file-name">Image</div>
-                                    <div class="file-size">${formatFileSize(data.file.size)}</div>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        // For other file types
-                        const fileIcon = getFileIcon(data.file.type);
-                        attachmentElement.innerHTML = `
-                            <div class="attachment-file">
-                                <i class="${fileIcon} file-icon"></i>
-                                <div class="file-info">
-                                    <div class="file-name">${data.file.name}</div>
-                                    <div class="file-size">${formatFileSize(data.file.size)}</div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                    
-                    messageBubble.appendChild(attachmentElement);
-                }
-                
-                // Add timestamp and status
+                // Add timestamp
                 const timeElement = document.createElement('div');
                 timeElement.className = 'message-time';
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 timeElement.innerHTML = `
-                    ${data.timestamp}
-                    ${isOutgoing ? `<span class="message-status ${data.status}">
-                        <i class="fas fa-check${data.status === 'read' ? '-double' : ''}"></i>
+                    ${timeString}
+                    ${isOutgoing ? `<span class="message-status">
+                        <i class="fas fa-check"></i>
                     </span>` : ''}
                 `;
-                
                 messageBubble.appendChild(timeElement);
+                
                 messageContainer.appendChild(messageBubble);
-                
-                // Add click event for replying
-                messageBubble.addEventListener('click', function() {
-                    replyToMessage = {
-                        id: data.id,
-                        sender: data.sender,
-                        text: data.text || 'File attachment'
-                    };
-                    showToast(`Replying to ${data.sender}`);
-                    messageInput.focus();
-                });
-                
                 chatBody.appendChild(messageContainer);
+                
+                // Scroll to bottom
                 chatBody.scrollTop = chatBody.scrollHeight;
             }
-            
-            function updateMessageStatus(messageId, status) {
-                const messages = document.querySelectorAll('.message-container.outgoing');
-                
-                for (let message of messages) {
-                    const statusElement = message.querySelector('.message-status');
-                    if (statusElement && message.querySelector('.message-time').textContent.includes(messageId)) {
-                        statusElement.className = `message-status ${status}`;
-                        statusElement.innerHTML = `<i class="fas fa-check${status === 'read' ? '-double' : ''}"></i>`;
-                        break;
-                    }
-                }
-            }
-            
-            function adjustTextareaHeight() {
-                messageInput.style.height = 'auto';
-                messageInput.style.height = (messageInput.scrollHeight) + 'px';
-            // Create new room
-            createButton.addEventListener('click', function() {
-                const username = usernameInput.value.trim();
-                const newRoomId = generateRoomId();
 
-                // Limit max height
-                if (messageInput.scrollHeight > 120) {
-                    messageInput.style.overflowY = 'auto';
-                } else {
-                    messageInput.style.overflowY = 'hidden';
+            // Add system message
+            function addSystemMessage(text) {
+                const systemMsg = document.createElement('div');
+                systemMsg.className = 'system-message';
+                systemMsg.style.textAlign = 'center';
+                systemMsg.style.color = 'var(--text-muted)';
+                systemMsg.style.fontSize = '12px';
+                systemMsg.style.margin = '10px 0';
+                systemMsg.textContent = text;
+                chatBody.appendChild(systemMsg);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // Join chat room
+            function joinChatRoom(username, roomId) {
+                currentUser = username;
+                currentRoom = roomId;
+                
+                // Update UI
+                profileName.textContent = `${username} (${roomId})`;
+                currentRoomIdSpan.textContent = roomId;
+                roomInfoDisplay.style.display = 'block';
+                
+                // Show chat container
+                entryContainer.style.display = 'none';
+                chatContainer.style.display = 'flex';
+                
+                // Add welcome message
+                addSystemMessage(`Welcome to room ${roomId}! You've joined as ${username}.`);
+                addSystemMessage('Share the Room ID with friends to invite them.');
+                
+                // In a real implementation, you would connect to WebSocket here
+                showToast(`Joined room: ${roomId}`, 'success');
+                
+                // Focus on message input
+                setTimeout(() => {
+                    messageInput.focus();
+                }, 100);
+            }
+
+            // Leave chat room
+            function leaveChatRoom() {
+                if (socket) {
+                    socket.disconnect();
+                }
+                
+                // Reset state
+                currentUser = '';
+                currentRoom = '';
+                
+                // Show entry container
+                chatContainer.style.display = 'none';
+                entryContainer.style.display = 'block';
+                
+                // Clear chat
+                chatBody.innerHTML = '';
+                
+                // Reset inputs
+                usernameInput.value = '';
+                roomIdInput.value = '';
+                
+                showToast('Left the chat room', 'info');
+            }
+
+            // Event Listeners
+            joinButton.addEventListener('click', function() {
+                const username = usernameInput.value.trim();
+                let roomId = roomIdInput.value.trim();
+                
                 if (!username) {
-                    alert('Please enter your name');
+                    showToast('Please enter your name', 'error');
                     return;
                 }
-            }
-            
-            function showToast(message) {
-                toast.textContent = message;
-                toast.classList.add('show');
-
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-            }
-            
-            function formatFileSize(bytes) {
-                if (bytes === 0) return '0 Bytes';
-                const k = 1024;
-                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-                const i = Math.floor(Math.log(bytes) / Math.log(k));
-                return parseFloat((bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
-            }
-                roomIdInput.value = newRoomId;
-                alert(`Welcome ${username}! Your new room ID is: ${newRoomId}\nShare this with friends to chat together.`);
+                
+                if (!roomId) {
+                    roomId = generateRoomId();
+                    roomIdInput.value = roomId;
+                }
+                
+                joinChatRoom(username, roomId);
             });
 
-            function getFileIcon(fileType) {
-                if (fileType.startsWith('image/')) return 'fas fa-image';
-                if (fileType.includes('pdf')) return 'fas fa-file-pdf';
-                if (fileType.includes('word') || fileType.includes('document')) return 'fas fa-file-word';
-                if (fileType.includes('excel') || fileType.includes('spreadsheet')) return 'fas fa-file-excel';
-                if (fileType.includes('zip') || fileType.includes('compressed')) return 'fas fa-file-archive';
-                return 'fas fa-file';
+            createButton.addEventListener('click', function() {
+                const username = usernameInput.value.trim();
+                
+                if (!username) {
+                    showToast('Please enter your name', 'error');
+                    return;
+                }
+                
+                const roomId = generateRoomId();
+                roomIdInput.value = roomId;
+                joinChatRoom(username, roomId);
+            });
+
+            // Message input events
+            messageInput.addEventListener('input', adjustTextareaHeight);
+            
+            messageInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Send button
+            sendButton.addEventListener('click', sendMessage);
+            
+            function sendMessage() {
+                const messageText = messageInput.value.trim();
+                
+                if (!messageText) return;
+                
+                // Add message locally
+                const messageData = {
+                    text: messageText,
+                    sender: currentUser,
+                    room: currentRoom,
+                    timestamp: new Date().toISOString()
+                };
+                
+                addMessage(messageData, true);
+                
+                // In a real implementation, send via WebSocket
+                // socket.emit('chat-message', messageData);
+                
+                // Clear input
+                messageInput.value = '';
+                messageInput.style.height = '50px';
+                
+                // Simulate response
+                setTimeout(() => {
+                    const responses = [
+                        "Hello! How are you?",
+                        "That's interesting!",
+                        "Thanks for sharing!",
+                        "I agree with you.",
+                        "Can you tell me more?"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    const botMessage = {
+                        text: randomResponse,
+                        sender: 'Chat Bot',
+                        room: currentRoom,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    addMessage(botMessage, false);
+                }, 1000);
             }
-            // Focus on username field when page loads
+
+            // File attachment
+            attachButton.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    showToast(`File selected: ${file.name}`, 'info');
+                    // Here you would upload the file and send the link
+                }
+            });
+
+            // Room info button
+            roomInfoBtn.addEventListener('click', function() {
+                const roomInfo = `Room ID: ${currentRoom}\nUsers online: ${usersInRoom.length + 1}`;
+                alert(roomInfo);
+            });
+
+            // Leave room button
+            leaveRoomBtn.addEventListener('click', leaveChatRoom);
+
+            // Emoji button (placeholder)
+            emojiButton.addEventListener('click', function() {
+                showToast('Emoji picker would open here', 'info');
+            });
+
+            // Typing indicator
+            messageInput.addEventListener('input', function() {
+                if (messageInput.value.trim() && !isTyping) {
+                    isTyping = true;
+                    // In real app: socket.emit('typing', { room: currentRoom, user: currentUser });
+                }
+            });
+
+            // Focus on username input on load
             usernameInput.focus();
         });
     </script>
 </body>
+</html>
