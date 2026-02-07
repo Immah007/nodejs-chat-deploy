@@ -53,10 +53,10 @@
             overflow: hidden;
         }
 
-        /* Entry Container */
-        .entry-container {
+        /* Entry Container - Simple and Clean */
+        #entry-container {
             width: 95%;
-            max-width: 480px;
+            max-width: 420px;
             padding: 40px;
             background: var(--white);
             border-radius: var(--border-radius);
@@ -65,121 +65,84 @@
             animation: fadeInUp 0.6s ease-out;
             z-index: 100;
             position: relative;
-            overflow: hidden;
-        }
-
-        .entry-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), #764ba2);
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .entry-logo {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--primary), #667eea);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 28px;
+            margin: 0 auto 24px;
             color: white;
-            font-size: 36px;
-            box-shadow: 0 8px 20px rgba(0, 191, 255, 0.3);
-            transition: var(--transition);
-        }
-
-        .entry-logo:hover {
-            transform: rotate(15deg) scale(1.1);
+            font-size: 32px;
         }
 
         .entry-header {
-            margin-bottom: 36px;
+            margin-bottom: 32px;
         }
 
         .entry-header h1 {
-            font-size: 32px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 600;
             color: var(--matte-black);
-            margin-bottom: 12px;
-            background: linear-gradient(90deg, var(--primary), #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 8px;
         }
 
         .entry-header p {
             color: var(--text-muted);
-            font-size: 16px;
-            line-height: 1.5;
+            font-size: 15px;
         }
 
         /* Form Elements */
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             text-align: left;
-            position: relative;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 500;
             color: var(--matte-black);
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-label i {
-            color: var(--primary);
+            font-size: 14px;
         }
 
         .form-input {
             width: 100%;
-            padding: 16px 20px;
-            border: 2px solid var(--medium-gray);
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
             border-radius: var(--border-radius-sm);
-            font-size: 16px;
+            font-size: 15px;
             transition: var(--transition);
             background-color: var(--white);
-            color: var(--text-dark);
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 191, 255, 0.15);
-            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
         }
 
-        .form-input::placeholder {
-            color: #adb5bd;
-        }
-
-        /* Room Actions */
-        .room-actions {
+        .form-actions {
             display: flex;
+            flex-direction: column;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-top: 28px;
         }
 
-        .room-action-btn {
-            flex: 1;
+        .btn {
             padding: 14px;
             border: none;
             border-radius: var(--border-radius-sm);
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
@@ -187,103 +150,57 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: var(--light-gray);
-            color: var(--text-dark);
-            border: 2px solid transparent;
-        }
-
-        .room-action-btn.active {
-            background: var(--primary-light);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .room-action-btn:hover:not(.active) {
-            background: var(--medium-gray);
-            transform: translateY(-2px);
-        }
-
-        /* Form Actions */
-        .form-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .btn {
-            padding: 16px 24px;
-            border: none;
-            border-radius: var(--border-radius-sm);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            letter-spacing: 0.5px;
         }
 
         .btn-primary {
             background: linear-gradient(90deg, var(--primary), #667eea);
             color: white;
-            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 191, 255, 0.3);
         }
 
         .btn-secondary {
-            background-color: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            background-color: var(--light-gray);
+            color: var(--matte-black);
         }
 
         .btn-secondary:hover {
-            background-color: var(--primary-light);
-            transform: translateY(-3px);
+            background-color: #e9ecef;
+            transform: translateY(-2px);
         }
 
-        /* Divider */
         .divider {
             display: flex;
             align-items: center;
-            margin: 24px 0;
+            margin: 16px 0;
             color: var(--text-muted);
             font-size: 14px;
-            font-weight: 500;
         }
 
         .divider::before, .divider::after {
             content: "";
             flex: 1;
-            border-bottom: 1px solid var(--medium-gray);
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .divider::before {
-            margin-right: 20px;
+            margin-right: 16px;
         }
 
         .divider::after {
-            margin-left: 20px;
+            margin-left: 16px;
         }
 
-        /* Chat Container */
+        /* Chat Container - Initially Hidden */
         #chat-container {
             display: none;
             width: 100%;
             height: 100vh;
             flex-direction: column;
             background-color: #f0f2f5;
-            position: relative;
         }
 
         /* Header */
@@ -297,8 +214,6 @@
             padding: 0 24px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
             flex-shrink: 0;
-            position: relative;
-            z-index: 10;
         }
 
         .header-left {
@@ -317,12 +232,7 @@
             justify-content: center;
             color: white;
             font-size: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-info {
-            display: flex;
-            flex-direction: column;
+            font-weight: 600;
         }
 
         .profile-info h3 {
@@ -357,12 +267,6 @@
         .typing-text {
             color: var(--typing-indicator);
             font-style: italic;
-            animation: typingPulse 1.5s infinite;
-        }
-
-        @keyframes typingPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
         }
 
         .room-info {
@@ -373,11 +277,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-top: 2px;
-        }
-
-        .room-info i {
-            font-size: 10px;
         }
 
         .header-right {
@@ -406,10 +305,6 @@
             transform: translateY(-2px);
         }
 
-        .header-btn i {
-            font-size: 18px;
-        }
-
         .user-count {
             position: absolute;
             top: -5px;
@@ -433,7 +328,6 @@
             flex-direction: column;
             gap: 20px;
             background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-            position: relative;
         }
 
         /* Welcome Banner */
@@ -448,16 +342,9 @@
             box-shadow: var(--box-shadow-light);
         }
 
-        .welcome-banner h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .welcome-banner p {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 12px;
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .room-id-display {
@@ -526,14 +413,12 @@
             background-color: var(--white);
             color: var(--text-dark);
             border-bottom-left-radius: 8px;
-            border-top-left-radius: 8px;
         }
 
         .outgoing .message-bubble {
             background: linear-gradient(90deg, var(--primary), #667eea);
             color: white;
             border-bottom-right-radius: 8px;
-            border-top-right-radius: 8px;
         }
 
         .message-sender {
@@ -563,10 +448,6 @@
             gap: 2px;
         }
 
-        .message-status i {
-            font-size: 12px;
-        }
-
         /* Message Types */
         .message-text {
             font-size: 15px;
@@ -579,13 +460,11 @@
             border-radius: var(--border-radius-sm);
             overflow: hidden;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
             max-width: 300px;
         }
 
         .incoming .file-message {
             background: var(--light-gray);
-            border: 1px solid var(--medium-gray);
         }
 
         .file-preview {
@@ -594,15 +473,6 @@
             align-items: center;
             gap: 16px;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .file-preview:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .incoming .file-preview:hover {
-            background: var(--medium-gray);
         }
 
         .file-icon {
@@ -629,39 +499,11 @@
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .file-size {
             font-size: 12px;
             opacity: 0.8;
-        }
-
-        .file-download {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: var(--border-radius-sm);
-            font-size: 12px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: var(--transition);
-        }
-
-        .file-download:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .incoming .file-download {
-            background: var(--primary);
-            color: white;
-        }
-
-        .incoming .file-download:hover {
-            background: var(--primary-dark);
         }
 
         /* Image Message */
@@ -672,13 +514,6 @@
             max-width: 300px;
             box-shadow: var(--box-shadow-light);
             cursor: pointer;
-            transition: var(--transition);
-            border: 3px solid transparent;
-        }
-
-        .image-message:hover {
-            transform: scale(1.02);
-            border-color: var(--primary);
         }
 
         .image-preview {
@@ -706,12 +541,6 @@
             margin-bottom: 12px;
             background: rgba(0, 0, 0, 0.05);
             border-radius: var(--border-radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .reply-preview:hover {
-            background: rgba(0, 0, 0, 0.08);
         }
 
         .reply-sender {
@@ -724,10 +553,6 @@
         .reply-text {
             font-size: 13px;
             opacity: 0.9;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
         /* Footer */
@@ -739,7 +564,6 @@
             gap: 16px;
             box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.08);
             flex-shrink: 0;
-            position: relative;
         }
 
         .input-container {
@@ -761,7 +585,6 @@
             font-family: inherit;
             transition: var(--transition);
             background: var(--white);
-            color: var(--text-dark);
         }
 
         #message-input:focus {
@@ -797,7 +620,6 @@
         .input-btn:hover {
             background-color: var(--primary-light);
             color: var(--primary);
-            transform: translateY(-2px);
         }
 
         #send-button {
@@ -813,16 +635,11 @@
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
-            flex-shrink: 0;
         }
 
         #send-button:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(0, 191, 255, 0.4);
-        }
-
-        #send-button i {
-            font-size: 20px;
         }
 
         #file-input, #image-input {
@@ -861,9 +678,6 @@
         .attachment-title {
             font-weight: 600;
             color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .remove-attachment {
@@ -878,11 +692,6 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .remove-attachment:hover {
-            background-color: rgba(220, 53, 69, 0.1);
         }
 
         .attachment-content {
@@ -910,7 +719,6 @@
         .attachment-name {
             font-weight: 500;
             margin-bottom: 4px;
-            color: var(--text-dark);
         }
 
         .attachment-size {
@@ -931,22 +739,15 @@
             font-size: 15px;
             z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
+            transition: opacity 0.3s;
             box-shadow: var(--box-shadow);
             display: flex;
             align-items: center;
             gap: 12px;
-            min-width: 300px;
-            max-width: 90%;
         }
 
         .toast.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .toast i {
-            font-size: 18px;
         }
 
         .toast.success { background: var(--success); }
@@ -962,19 +763,10 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.7);
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            backdrop-filter: blur(5px);
-        }
-
-        .users-modal.show {
-            opacity: 1;
-            visibility: visible;
         }
 
         .users-modal-content {
@@ -984,12 +776,6 @@
             max-width: 400px;
             max-height: 80vh;
             overflow: hidden;
-            transform: translateY(20px);
-            transition: transform 0.3s;
-        }
-
-        .users-modal.show .users-modal-content {
-            transform: translateY(0);
         }
 
         .users-modal-header {
@@ -1004,9 +790,6 @@
         .users-modal-header h3 {
             font-size: 20px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .close-modal {
@@ -1015,17 +798,6 @@
             color: white;
             font-size: 24px;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            background: rgba(255, 255, 255, 0.2);
         }
 
         .users-list {
@@ -1041,17 +813,7 @@
             padding: 16px;
             border-radius: var(--border-radius-sm);
             margin-bottom: 12px;
-            transition: var(--transition);
             background: var(--light-gray);
-        }
-
-        .user-item:hover {
-            background: var(--medium-gray);
-            transform: translateX(5px);
-        }
-
-        .user-item:last-child {
-            margin-bottom: 0;
         }
 
         .user-avatar {
@@ -1064,11 +826,6 @@
             justify-content: center;
             color: white;
             font-weight: 600;
-            font-size: 18px;
-        }
-
-        .user-info {
-            flex: 1;
         }
 
         .user-name {
@@ -1084,14 +841,13 @@
             gap: 6px;
         }
 
-        /* Scrollbar Styling */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
             background: var(--light-gray);
-            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -1099,19 +855,11 @@
             border-radius: 4px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
-            .entry-container {
+            #entry-container {
                 padding: 32px 24px;
                 margin: 16px;
-            }
-
-            .entry-header h1 {
-                font-size: 28px;
             }
 
             .message-container {
@@ -1124,14 +872,6 @@
 
             #chat-footer {
                 padding: 16px;
-            }
-
-            .welcome-banner {
-                padding: 16px;
-            }
-
-            .room-actions {
-                flex-direction: column;
             }
         }
 
@@ -1147,78 +887,47 @@
             }
 
             .form-input, .btn {
-                padding: 14px 16px;
+                padding: 12px 16px;
             }
 
             #message-input {
                 padding: 14px 60px 14px 16px;
-            }
-
-            .header-btn {
-                width: 36px;
-                height: 36px;
-            }
-
-            .profile-pic {
-                width: 38px;
-                height: 38px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Entry Container -->
-    <div id="entry-container" class="entry-container">
+    <div id="entry-container">
         <div class="entry-logo">
             <i class="fas fa-comments"></i>
         </div>
         
         <div class="entry-header">
-            <h1>Elegant Chat Rooms</h1>
-            <p>Connect with anyone in real-time with beautiful, feature-rich chat rooms</p>
-        </div>
-        
-        <div class="room-actions">
-            <button class="room-action-btn active" id="join-room-btn">
-                <i class="fas fa-sign-in-alt"></i> Join Room
-            </button>
-            <button class="room-action-btn" id="create-room-btn">
-                <i class="fas fa-plus-circle"></i> Create Room
-            </button>
+            <h1>Welcome to Elegant Chat</h1>
+            <p>Join a room to start chatting in real-time</p>
         </div>
         
         <div class="form-group">
-            <label for="username">
-                <i class="fas fa-user"></i> Your Name
-            </label>
-            <input type="text" id="username" class="form-input" placeholder="Enter your display name" required>
+            <label for="username" class="form-label">Your Name</label>
+            <input type="text" id="username" class="form-input" placeholder="Enter your name" required>
         </div>
         
         <div class="form-group">
-            <label for="room-id">
-                <i class="fas fa-door-open"></i> Room ID
-            </label>
-            <input type="text" id="room-id" class="form-input" placeholder="Enter room ID to join" id="room-id-input">
+            <label for="room-id" class="form-label">Room ID</label>
+            <input type="text" id="room-id" class="form-input" placeholder="Enter room ID or leave empty to create new">
         </div>
         
         <div class="form-actions">
             <button id="start-chat-btn" class="btn btn-primary">
-                <i class="fas fa-rocket"></i> Start Chatting
+                <i class="fas fa-sign-in-alt"></i> Start Chatting
             </button>
             
-            <div class="divider">Quick Join</div>
+            <div class="divider">Or</div>
             
-            <div class="quick-rooms">
-                <button class="room-action-btn" data-room="general">
-                    <i class="fas fa-globe"></i> General
-                </button>
-                <button class="room-action-btn" data-room="random">
-                    <i class="fas fa-random"></i> Random
-                </button>
-                <button class="room-action-btn" data-room="friends">
-                    <i class="fas fa-users"></i> Friends
-                </button>
-            </div>
+            <button id="random-room-btn" class="btn btn-secondary">
+                <i class="fas fa-random"></i> Join Random Room
+            </button>
         </div>
     </div>
 
@@ -1228,18 +937,18 @@
         <header id="header">
             <div class="header-left">
                 <div class="profile-pic" id="user-avatar">
-                    <i class="fas fa-user"></i>
+                    U
                 </div>
                 <div class="profile-info">
-                    <h3 id="profile-name">Loading...</h3>
+                    <h3 id="profile-name">User</h3>
                     <p id="status-indicator">
                         <span class="online-dot"></span>
-                        <span id="status-text">Connecting...</span>
+                        <span id="status-text">Online</span>
                         <span id="typing-text" class="typing-text" style="display: none;">typing...</span>
                     </p>
-                    <div class="room-info" id="room-info-badge">
+                    <div class="room-info">
                         <i class="fas fa-hashtag"></i>
-                        <span id="current-room-name">...</span>
+                        <span id="current-room-name">room-id</span>
                     </div>
                 </div>
             </div>
@@ -1259,15 +968,14 @@
 
         <!-- Chat Body -->
         <main id="chat-body">
-            <!-- Welcome message will be inserted here -->
+            <!-- Messages will be inserted here -->
         </main>
 
         <!-- Attachment Preview -->
         <div id="attachment-preview" class="attachment-preview">
             <div class="attachment-header">
                 <div class="attachment-title">
-                    <i class="fas fa-paperclip"></i>
-                    <span>Attachment Preview</span>
+                    <i class="fas fa-paperclip"></i> Attachment
                 </div>
                 <button class="remove-attachment" id="remove-attachment-btn">
                     <i class="fas fa-times"></i>
@@ -1287,16 +995,13 @@
         <!-- Footer -->
         <footer id="chat-footer">
             <div class="input-container">
-                <textarea id="message-input" placeholder="Type your message here..." rows="1"></textarea>
+                <textarea id="message-input" placeholder="Type your message..." rows="1"></textarea>
                 <div class="input-actions">
                     <button class="input-btn" id="image-btn" title="Send Image">
                         <i class="fas fa-image"></i>
                     </button>
                     <button class="input-btn" id="file-btn" title="Send File">
                         <i class="fas fa-paperclip"></i>
-                    </button>
-                    <button class="input-btn" id="emoji-btn" title="Emoji">
-                        <i class="far fa-smile"></i>
                     </button>
                 </div>
                 <input type="file" id="file-input" accept=".pdf,.doc,.docx,.txt,.zip,.rar">
@@ -1312,7 +1017,7 @@
     <div class="users-modal" id="users-modal">
         <div class="users-modal-content">
             <div class="users-modal-header">
-                <h3><i class="fas fa-users"></i> Online Users</h3>
+                <h3>Online Users</h3>
                 <button class="close-modal" id="close-users-modal">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1326,7 +1031,7 @@
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <!-- Socket.IO CDN -->
+    <!-- Socket.IO -->
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1334,10 +1039,9 @@
             const entryContainer = document.getElementById('entry-container');
             const chatContainer = document.getElementById('chat-container');
             const usernameInput = document.getElementById('username');
-            const roomIdInput = document.getElementById('room-id-input');
+            const roomIdInput = document.getElementById('room-id');
             const startChatBtn = document.getElementById('start-chat-btn');
-            const joinRoomBtn = document.getElementById('join-room-btn');
-            const createRoomBtn = document.getElementById('create-room-btn');
+            const randomRoomBtn = document.getElementById('random-room-btn');
             const profileName = document.getElementById('profile-name');
             const statusText = document.getElementById('status-text');
             const typingText = document.getElementById('typing-text');
@@ -1348,7 +1052,6 @@
             const imageInput = document.getElementById('image-input');
             const fileBtn = document.getElementById('file-btn');
             const imageBtn = document.getElementById('image-btn');
-            const emojiBtn = document.getElementById('emoji-btn');
             const usersBtn = document.getElementById('users-btn');
             const roomInfoBtn = document.getElementById('room-info-btn');
             const leaveBtn = document.getElementById('leave-btn');
@@ -1356,7 +1059,6 @@
             const userCount = document.getElementById('user-count');
             const currentRoomName = document.getElementById('current-room-name');
             const userAvatar = document.getElementById('user-avatar');
-            const roomInfoBadge = document.getElementById('room-info-badge');
             const attachmentPreview = document.getElementById('attachment-preview');
             const attachmentName = document.getElementById('attachment-name');
             const attachmentSize = document.getElementById('attachment-size');
@@ -1365,7 +1067,6 @@
             const usersModal = document.getElementById('users-modal');
             const usersList = document.getElementById('users-list');
             const closeUsersModal = document.getElementById('close-users-modal');
-            const quickRoomButtons = document.querySelectorAll('.quick-rooms .room-action-btn');
 
             // ============= App State =============
             let socket = null;
@@ -1394,23 +1095,14 @@
             }
 
             function generateUserColor() {
-                const colors = [
-                    '#00bfff', '#667eea', '#764ba2', '#f093fb', '#f5576c',
-                    '#4facfe', '#00f2fe', '#43e97b', '#38f9d7', '#fa709a'
-                ];
+                const colors = ['#00bfff', '#667eea', '#764ba2', '#f093fb', '#f5576c'];
                 return colors[Math.floor(Math.random() * colors.length)];
             }
 
             function showToast(message, type = 'info', duration = 3000) {
                 toast.textContent = message;
                 toast.className = `toast ${type}`;
-                toast.innerHTML = `
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 
-                                      type === 'error' ? 'exclamation-circle' : 
-                                      type === 'warning' ? 'exclamation-triangle' : 
-                                      'info-circle'}"></i>
-                    ${message}
-                `;
+                toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
                 toast.classList.add('show');
 
                 setTimeout(() => {
@@ -1440,35 +1132,22 @@
                     return 'fas fa-file-pdf';
                 } else if (['doc', 'docx'].includes(ext)) {
                     return 'fas fa-file-word';
-                } else if (['xls', 'xlsx'].includes(ext)) {
-                    return 'fas fa-file-excel';
-                } else if (['zip', 'rar', '7z'].includes(ext)) {
+                } else if (['zip', 'rar'].includes(ext)) {
                     return 'fas fa-file-archive';
-                } else if (['mp3', 'wav', 'ogg'].includes(ext)) {
-                    return 'fas fa-file-audio';
-                } else if (['mp4', 'avi', 'mov'].includes(ext)) {
-                    return 'fas fa-file-video';
                 } else {
                     return 'fas fa-file';
                 }
             }
 
-            function formatTime(date = new Date()) {
-                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            function formatTime() {
+                return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             }
 
             // ============= Message Functions =============
-            function addSystemMessage(text, type = 'info') {
+            function addSystemMessage(text) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'system-message';
-                messageDiv.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-${type === 'join' ? 'user-plus' : 
-                                         type === 'leave' ? 'user-minus' : 
-                                         type === 'info' ? 'info-circle' : 'bell'}"></i>
-                        <span>${text}</span>
-                    </div>
-                `;
+                messageDiv.textContent = text;
                 chatBody.appendChild(messageDiv);
                 chatBody.scrollTop = chatBody.scrollHeight;
             }
@@ -1481,27 +1160,12 @@
                 const messageBubble = document.createElement('div');
                 messageBubble.className = 'message-bubble';
 
-                // Sender name
+                // Sender name for incoming messages
                 if (!isOutgoing && data.sender !== currentUser) {
                     const senderElement = document.createElement('div');
                     senderElement.className = 'message-sender';
-                    senderElement.innerHTML = `
-                        <span style="display: inline-block; width: 12px; height: 12px; 
-                             border-radius: 50%; background: ${data.color || userColor};"></span>
-                        ${data.sender}
-                    `;
+                    senderElement.textContent = data.sender;
                     messageBubble.appendChild(senderElement);
-                }
-
-                // Reply preview
-                if (data.replyTo) {
-                    const replyPreview = document.createElement('div');
-                    replyPreview.className = 'reply-preview';
-                    replyPreview.innerHTML = `
-                        <div class="reply-sender">${data.replyTo.sender}</div>
-                        <div class="reply-text">${data.replyTo.text || '[File]'}</div>
-                    `;
-                    messageBubble.appendChild(replyPreview);
                 }
 
                 // Message text
@@ -1520,15 +1184,12 @@
                     const fileIcon = getFileIcon(data.file.name);
                     
                     fileMessage.innerHTML = `
-                        <div class="file-preview" onclick="downloadFile('${data.file.name}', '${data.file.url || '#'}')">
+                        <div class="file-preview">
                             <div class="file-icon">
                                 <i class="${fileIcon}"></i>
                             </div>
                             <div class="file-info">
-                                <div class="file-name">
-                                    <span>${data.file.name}</span>
-                                    <i class="fas fa-download" style="font-size: 12px;"></i>
-                                </div>
+                                <div class="file-name">${data.file.name}</div>
                                 <div class="file-size">${formatFileSize(data.file.size)}</div>
                             </div>
                         </div>
@@ -1541,40 +1202,20 @@
                     const imageMessage = document.createElement('div');
                     imageMessage.className = 'image-message';
                     imageMessage.innerHTML = `
-                        <img src="${data.image.url || '#'}" alt="${data.image.caption || 'Image'}" 
-                             class="image-preview" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"200\" viewBox=\"0 0 300 200\"><rect width=\"300\" height=\"200\" fill=\"%23f0f2f5\"/><text x=\"150\" y=\"100\" font-family=\"Arial\" font-size=\"14\" text-anchor=\"middle\" fill=\"%236c757d\">Image not available</text></svg>'">
+                        <img src="${data.image.url || '#'}" alt="Image" class="image-preview">
                         ${data.image.caption ? `<div class="image-caption">${data.image.caption}</div>` : ''}
                     `;
                     messageBubble.appendChild(imageMessage);
                 }
 
-                // Timestamp and status
+                // Timestamp
                 const timeElement = document.createElement('div');
                 timeElement.className = 'message-time';
                 timeElement.innerHTML = `
                     ${data.timestamp || formatTime()}
-                    ${isOutgoing ? `
-                        <span class="message-status ${data.status || 'sent'}">
-                            <i class="fas fa-check${data.status === 'read' ? '-double' : ''}"></i>
-                        </span>
-                    ` : ''}
+                    ${isOutgoing ? `<span class="message-status"><i class="fas fa-check"></i></span>` : ''}
                 `;
                 messageBubble.appendChild(timeElement);
-
-                // Reply functionality
-                messageBubble.addEventListener('contextmenu', function(e) {
-                    e.preventDefault();
-                    if (!isOutgoing) {
-                        messageReply = {
-                            id: data.id,
-                            sender: data.sender,
-                            text: data.text || (data.file ? `[File: ${data.file.name}]` : '[Image]')
-                        };
-                        showToast(`Replying to ${data.sender}`, 'info');
-                        messageInput.focus();
-                        messageInput.placeholder = `Replying to ${data.sender}...`;
-                    }
-                });
 
                 messageContainer.appendChild(messageBubble);
                 chatBody.appendChild(messageContainer);
@@ -1602,8 +1243,8 @@
                 // Update UI
                 profileName.textContent = username;
                 currentRoomName.textContent = roomId;
+                userAvatar.textContent = username.charAt(0).toUpperCase();
                 userAvatar.style.background = userColor;
-                userAvatar.innerHTML = `<span style="font-size: 18px; font-weight: 600;">${username.charAt(0).toUpperCase()}</span>`;
 
                 // Show chat container
                 entryContainer.style.display = 'none';
@@ -1637,8 +1278,6 @@
                 currentUser = '';
                 currentRoom = '';
                 usersInRoom = [];
-                pendingAttachment = null;
-                messageReply = null;
 
                 // Show entry container
                 chatContainer.style.display = 'none';
@@ -1647,12 +1286,8 @@
                 // Clear inputs
                 messageInput.value = '';
                 messageInput.style.height = '56px';
-                messageInput.placeholder = 'Type your message here...';
 
-                // Hide attachment preview
-                attachmentPreview.style.display = 'none';
-
-                showToast('Left the chat room', 'info');
+                showToast('Left the chat room');
             }
 
             // ============= Socket Functions =============
@@ -1672,16 +1307,11 @@
                     });
                 });
 
-                socket.on('connect_error', () => {
-                    statusText.textContent = 'Disconnected';
-                    showToast('Connection error. Reconnecting...', 'error');
-                });
-
                 socket.on('userJoined', (data) => {
                     usersInRoom = data.users;
                     updateUserCount();
                     if (data.username !== currentUser) {
-                        addSystemMessage(`${data.username} joined the room`, 'join');
+                        addSystemMessage(`${data.username} joined the room`);
                         showToast(`${data.username} joined the room`, 'info', 2000);
                     }
                 });
@@ -1690,7 +1320,7 @@
                     usersInRoom = data.users;
                     updateUserCount();
                     if (data.username !== currentUser) {
-                        addSystemMessage(`${data.username} left the room`, 'leave');
+                        addSystemMessage(`${data.username} left the room`);
                         showToast(`${data.username} left the room`, 'warning', 2000);
                     }
                 });
@@ -1725,28 +1355,8 @@
                     updateMessageStatus(data.messageId, data.status);
                 });
 
-                socket.on('fileUploaded', (data) => {
-                    const fileData = {
-                        id: Date.now().toString(),
-                        sender: data.sender,
-                        file: {
-                            name: data.name,
-                            size: data.size,
-                            url: data.url
-                        },
-                        timestamp: data.timestamp
-                    };
-                    addMessage(fileData, data.sender === currentUser);
-                });
-
                 socket.on('error', (error) => {
                     showToast(`Error: ${error.message}`, 'error');
-                });
-
-                socket.on('roomInfo', (data) => {
-                    usersInRoom = data.users;
-                    updateUserCount();
-                    addSystemMessage(`Room created. Currently ${data.users.length} user(s) online.`, 'info');
                 });
             }
 
@@ -1764,8 +1374,7 @@
                     userId: currentUserId,
                     color: userColor,
                     timestamp: formatTime(),
-                    status: 'sent',
-                    replyTo: messageReply
+                    status: 'sent'
                 };
 
                 // Add file/image attachment if exists
@@ -1785,11 +1394,7 @@
                         };
                     }
                     
-                    // For demo, we'll just log the file
-                    console.log('File selected for upload:', pendingAttachment.name, pendingAttachment.size);
-                    
-                    // In real implementation, you would upload here
-                    // socket.emit('fileUpload', { file: pendingAttachment, room: currentRoom });
+                    console.log('File selected:', pendingAttachment.name);
                     
                     // Clear attachment preview
                     attachmentPreview.style.display = 'none';
@@ -1805,8 +1410,6 @@
                 // Clear input
                 messageInput.value = '';
                 messageInput.style.height = '56px';
-                messageInput.placeholder = 'Type your message here...';
-                messageReply = null;
 
                 // Update status to delivered
                 setTimeout(() => {
@@ -1844,34 +1447,10 @@
                     usersList.appendChild(userItem);
                 });
 
-                usersModal.classList.add('show');
+                usersModal.style.display = 'flex';
             }
 
             // ============= Event Listeners =============
-            // Room mode toggle
-            joinRoomBtn.addEventListener('click', () => {
-                joinRoomBtn.classList.add('active');
-                createRoomBtn.classList.remove('active');
-                roomIdInput.placeholder = 'Enter room ID to join';
-            });
-
-            createRoomBtn.addEventListener('click', () => {
-                createRoomBtn.classList.add('active');
-                joinRoomBtn.classList.remove('active');
-                const newRoomId = generateRoomId();
-                roomIdInput.value = newRoomId;
-                roomIdInput.placeholder = 'New room ID generated';
-            });
-
-            // Quick room buttons
-            quickRoomButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const room = btn.dataset.room;
-                    roomIdInput.value = room;
-                    joinRoomBtn.click();
-                });
-            });
-
             // Start chat button
             startChatBtn.addEventListener('click', () => {
                 const username = usernameInput.value.trim();
@@ -1884,17 +1463,25 @@
                 }
 
                 if (!roomId) {
-                    if (createRoomBtn.classList.contains('active')) {
-                        roomId = generateRoomId();
-                        roomIdInput.value = roomId;
-                    } else {
-                        showToast('Please enter a room ID', 'error');
-                        roomIdInput.focus();
-                        return;
-                    }
+                    roomId = generateRoomId();
                 }
 
                 joinRoom(username, roomId);
+            });
+
+            // Random room button
+            randomRoomBtn.addEventListener('click', () => {
+                const username = usernameInput.value.trim();
+                
+                if (!username) {
+                    showToast('Please enter your name first', 'error');
+                    usernameInput.focus();
+                    return;
+                }
+
+                const roomId = generateRoomId();
+                roomIdInput.value = roomId;
+                showToast(`Random room ID generated: ${roomId}`);
             });
 
             // Enter key in inputs
@@ -1912,10 +1499,12 @@
                 
                 if (messageInput.value.trim() && !isTyping) {
                     isTyping = true;
-                    socket.emit('typing', {
-                        username: currentUser,
-                        room: currentRoom
-                    });
+                    if (socket) {
+                        socket.emit('typing', {
+                            username: currentUser,
+                            room: currentRoom
+                        });
+                    }
                     
                     setTimeout(() => {
                         isTyping = false;
@@ -1948,7 +1537,7 @@
                     attachmentIcon.innerHTML = `<i class="${getFileIcon(file.name)}"></i>`;
                     attachmentPreview.style.display = 'block';
                     
-                    showToast(`File selected: ${file.name}`, 'info');
+                    showToast(`File selected: ${file.name}`);
                 }
             });
 
@@ -1963,7 +1552,7 @@
                     attachmentIcon.innerHTML = '<i class="fas fa-image"></i>';
                     attachmentPreview.style.display = 'block';
                     
-                    showToast(`Image selected: ${file.name}`, 'info');
+                    showToast(`Image selected: ${file.name}`);
                 }
             });
 
@@ -1991,38 +1580,19 @@
 
             // Modal close
             closeUsersModal.addEventListener('click', () => {
-                usersModal.classList.remove('show');
+                usersModal.style.display = 'none';
             });
 
             usersModal.addEventListener('click', (e) => {
                 if (e.target === usersModal) {
-                    usersModal.classList.remove('show');
+                    usersModal.style.display = 'none';
                 }
             });
-
-            // Emoji button (placeholder)
-            emojiBtn.addEventListener('click', () => {
-                showToast('Emoji picker coming soon!', 'info');
-            });
-
-            // Global function for file download
-            window.downloadFile = function(filename, url) {
-                if (url === '#') {
-                    showToast('File download not available in demo', 'warning');
-                    return;
-                }
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            };
 
             // Focus on username input on load
             usernameInput.focus();
 
-            // Auto-adjust textarea height on load
+            // Auto-adjust textarea height
             setTimeout(adjustTextareaHeight, 100);
         });
     </script>
